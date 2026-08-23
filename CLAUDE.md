@@ -14,6 +14,11 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 - `npm run check-plugin-version` — asserts `plugin.json` version matches `package.json`; run after either changes.
 - `scripts/list-skills.sh` — list every `SKILL.md` path in the repo.
 - `scripts/link-skills.sh` — symlink every skill into `~/.claude/skills` and `~/.agents/skills` for local use; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
+- `scripts/scaffold-ship.sh /path/to/repo [branch]` — cut a repo's `/ship` command from the canonical template into its `.claude/commands/ship.md`. See below.
+
+### The `/ship` command (per-repo, from a template)
+
+`/ship` is a project-local Claude Code command, not a plugin-distributed one: each repo carries its own `.claude/commands/ship.md`, tuned to that repo's real gates and deploy story. The plugin does not ship it. `.agents/ship-template.md` is the canonical source they are cut from: it holds the invariant spine (commit discipline, the attribution rules, branch-from-`origin` never HEAD, merge-not-squash, verify-don't-infer, honest report) as fixed prose, with two `REPO:` fill-in zones (`GATES`, `DEPLOY`) and a `{{DEFAULT_BRANCH}}` token. To stand one up in another repo, run `scripts/scaffold-ship.sh /path/to/repo [branch]`, then fill the two zones. When you improve the spine, edit the template; the per-repo copies are instances, so re-cut or hand-patch them to match.
 
 ### Release flow (changesets)
 
