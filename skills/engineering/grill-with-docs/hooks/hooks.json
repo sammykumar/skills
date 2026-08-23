@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/skills/engineering/grill-with-docs/hooks/detect-new-feature.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
