@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/samkumar/Development/SK-Productions-LLC/skills/skills/engineering/domain-modeling/hooks/detect-new-repo.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/samkumar/Development/SK-Productions-LLC/skills/skills/engineering/domain-modeling/hooks/detect-instruction-edit-codex.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
