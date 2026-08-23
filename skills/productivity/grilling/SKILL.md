@@ -5,9 +5,16 @@ description: Grill the user relentlessly about a plan, decision, or idea. Use wh
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 
-Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
+Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round, each question carrying your recommended answer, then wait for the user's answers before the next round.
 
-Format a round like so:
+Ask the round through the harness's structured user-input tool whenever one exists (Claude Code exposes `AskUserQuestion`; other harnesses expose an equivalent request-for-input). Picking an answer beats quoting a question back, and it is what most users reach for. Map each frontier question onto it:
+
+- One question per decision. Make your recommended answer the first option and suffix its label `(Recommended)`; list the other viable answers as the remaining options.
+- The tool adds a free-form option itself, so list only the discrete answers. When more than one answer can hold at once, mark the question multi-select.
+- A call caps at four questions, four options each. A frontier wider than that is consecutive calls inside the same round: cover the whole frontier before you wait, rather than shrinking the round to fit one call.
+- A decision with no discrete answers to choose between (a name, an open-ended constraint) has nothing to select. Ask it in the prose format below.
+
+Where the harness exposes no such tool, ask the whole round in prose, one question per block:
 
 ```
 ❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
