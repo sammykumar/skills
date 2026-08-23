@@ -1,11 +1,11 @@
 {
-  "name": "mattpocock-skills",
-  "version": "1.2.3",
+  "name": "sk-skills",
+  "version": "1.0.0",
   "private": true,
-  "description": "Matt Pocock's agent skills for real engineering",
+  "description": "SK Productions agent skills for real engineering",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattpocock/skills"
+    "url": "https://github.com/sammykumar/skills"
   },
   "license": "MIT",
   "scripts": {
