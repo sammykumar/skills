@@ -1,13 +1,13 @@
 {
-  "name": "mattpocock-skills",
-  "version": "1.2.3",
-  "description": "Matt Pocock's agent skills for real engineering: grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
+  "name": "sk-skills",
+  "version": "1.0.0",
+  "description": "SK Productions agent skills for real engineering: grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
   "author": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "Sam Kumar",
+    "url": "https://skproductions.llc"
   },
-  "homepage": "https://www.aihero.dev/s/skills-newsletter",
-  "repository": "https://github.com/mattpocock/skills",
+  "homepage": "https://github.com/sammykumar/skills",
+  "repository": "https://github.com/sammykumar/skills",
   "license": "MIT",
   "keywords": [
     "engineering",
@@ -19,12 +19,12 @@
     "productivity"
   ],
   "skills": [
-    "./skills/engineering/ask-matt",
+    "./skills/engineering/ask-sk",
     "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/triage",
     "./skills/engineering/improve-codebase-architecture",
-    "./skills/engineering/setup-matt-pocock-skills",
+    "./skills/engineering/setup-sk-skills",
     "./skills/engineering/tdd",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",

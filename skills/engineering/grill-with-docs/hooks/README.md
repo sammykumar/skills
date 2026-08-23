@@ -26,7 +26,7 @@ On every prompt the script: checks a per-session fire-once marker (skip if alrea
 
 Three routes, pick one:
 
-1. **Bundled in a plugin (the eventual home).** Ship the hook in your own Claude Code plugin: either add a `hooks` key to the plugin's `plugin.json` with the contents of `hooks.json`, or place a `hooks/hooks.json` at the plugin root. The `${CLAUDE_PLUGIN_ROOT}`-relative command in `hooks.json` resolves against the installed plugin directory. Note: this repo currently disables the `mattpocock-skills` plugin in its own `.claude/settings.json`, so a plugin-bundled hook will not fire in this repo's own sessions.
+1. **Bundled in a plugin (the eventual home).** Ship the hook in your own Claude Code plugin: either add a `hooks` key to the plugin's `plugin.json` with the contents of `hooks.json`, or place a `hooks/hooks.json` at the plugin root. The `${CLAUDE_PLUGIN_ROOT}`-relative command in `hooks.json` resolves against the installed plugin directory. Note: this repo currently disables the `sk-skills` plugin in its own `.claude/settings.json`, so a plugin-bundled hook will not fire in this repo's own sessions.
 2. **User settings (fires everywhere, including this repo).** Add a `hooks.UserPromptSubmit` entry to `~/.claude/settings.json` pointing `command` at the absolute path of `detect-new-feature.sh`.
 3. **Project settings (this repo only).** Same entry in this repo's `.claude/settings.json`.
 
