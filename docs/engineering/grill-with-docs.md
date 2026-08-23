@@ -2,7 +2,7 @@
 
 `grill-with-docs` interviews you about a plan or design until you and the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) share one understanding of it, and writes the vocabulary and the hard decisions into your repo while it does. It is the same interview [grill-me](https://aihero.dev/skills-grill-me) runs (a round of questions, then wait, then the next round), pointed at a codebase.
 
-It is **[stateful](https://www.aihero.dev/ai-coding-dictionary/stateful)**. Every other grilling skill leaves the [session](https://www.aihero.dev/ai-coding-dictionary/session) in your head; this one leaves files on disk. A term gets resolved and it lands in `CONTEXT.md` the moment it resolves, not batched at the end. A decision passes three gates and it lands as an ADR. That is the whole difference, and it is also the source of most of the trouble people have with the skill: the artifacts are real files in a real repo, so they can be absent when you expected them, and they can drift when more than one person is writing them.
+It is **[stateful](https://www.aihero.dev/ai-coding-dictionary/stateful)**. Every other grilling skill leaves the [session](https://www.aihero.dev/ai-coding-dictionary/session) in your head; this one leaves files on disk. A term gets resolved and it lands in `CONTEXT.md` the moment it resolves, not batched at the end. A decision passes three gates and it lands as an ADR. The design you settle lands as a design record in the repo's own planning-doc location. That is the whole difference, and it is also the source of most of the trouble people have with the skill: the artifacts are real files in a real repo, so they can be absent when you expected them, and they can drift when more than one person is writing them.
 
 ## When to reach for it
 
@@ -22,21 +22,30 @@ The wayfinder split comes down to session count: `/grill-with-docs` for single-s
 
 ## Prerequisites
 
-The skill writes into your repo, so you need to be somewhere it is safe to write. Resolved terms go to a `CONTEXT.md` glossary at the root, or to the relevant context's `CONTEXT.md`, if a `CONTEXT-MAP.md` at the root marks the repo as multi-context. Decisions go to `docs/adr/`. Both are created lazily; nothing exists until the first term or decision crystallises, so there is nothing to scaffold up front.
+The skill writes into your repo, so you need to be somewhere it is safe to write. Resolved terms go to a `CONTEXT.md` glossary at the root, or to the relevant context's `CONTEXT.md`, if a `CONTEXT-MAP.md` at the root marks the repo as multi-context. Decisions go to `docs/adr/`. The settled design itself, the plan and the reasoning behind it, goes to a design record placed in whatever planning-doc convention the repo already uses (a single file by default when the repo has none). All three are created lazily; nothing exists until the first term, decision, or design point crystallises, so there is nothing to scaffold up front.
 
 It also needs two other skills present, because its own `SKILL.md` is one line that delegates to them: [grilling](https://aihero.dev/skills-grilling) supplies the interview, [domain-modeling](https://aihero.dev/skills-domain-modeling) supplies the writing. Installing `grill-with-docs` alone gets you a skill that does not work.
 
 ## The paper trail
 
-Three things come out of a session, and they are not equal.
+Four things can come out of a session, and they are not equal.
 
 | What resolved | Where it lands |
 | --- | --- |
 | A term: the project's own word for a thing | `CONTEXT.md`, inline, the moment it resolves |
 | A decision that is hard to reverse, surprising without context, and a real trade-off | An ADR under `docs/adr/` |
-| Everything else you decided | The conversation, and nowhere else |
+| The settled design: the plan you agreed and the reasoning behind it | A design record, placed by detect-and-match into the repo's own planning-doc convention |
+| Nothing worth writing down | The conversation |
 
-That third row is the one that catches people out. `CONTEXT.md` is a glossary and is deliberately kept as one: no implementation details, no [spec](https://www.aihero.dev/ai-coding-dictionary/spec), no scratch notes. ADRs are gated on all three conditions at once, so most decisions do not qualify and most sessions produce none. A session that yields a sharper glossary and zero ADRs is working as designed, but it means the bulk of what you agreed exists only in the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) you agreed it in. Hand that same conversation to [to-spec](https://aihero.dev/skills-to-spec) rather than [clearing](https://www.aihero.dev/ai-coding-dictionary/clearing) it.
+That third row used to be missing, and its absence is what caught people out: the design you settled lived only in the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) you settled it in. It now has a home. The record is the resolved design tree with the decisions and the reasoning that produced them, and it lands wherever the repo already keeps planning docs, so a repo you have set up before keeps its own layout. The default is a single dated file; it graduates to a fuller multi-file layout only once the work earns it:
+
+- it spans more than one session;
+- [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) execute it, so each needs its own file to read;
+- an external tracker (a ClickUp task, a GitHub issue) owns the work.
+
+Like `CONTEXT.md`, the record is created lazily, once the first decision is worth writing down.
+
+The design record does not blur the other two. `CONTEXT.md` stays a glossary and is deliberately kept as one: no implementation details, no [spec](https://www.aihero.dev/ai-coding-dictionary/spec), no scratch notes. ADRs stay gated on all three conditions at once, so most decisions do not qualify and most sessions produce none; a session that yields a sharper glossary and zero ADRs is still working as designed. What changed is that the reasoning between those two extremes now has somewhere to go. Hand the same conversation to [to-spec](https://aihero.dev/skills-to-spec) rather than [clearing](https://www.aihero.dev/ai-coding-dictionary/clearing) it, and the design record is what to-spec builds on.
 
 The glossary is the point. Domain language is the thing this skill is actually building: the project's own words, agreed once, so you, the agent and your colleagues stop paying to re-derive them. It is worth saying that not everyone agrees this buys you agent performance: the sharpest public pushback is that a term and its plain-English expansion get the same result from the [model](https://www.aihero.dev/ai-coding-dictionary/model), and that the vocabulary really compresses communication between the humans who share it. That reading still leaves the glossary valuable; it just moves the value.
 
@@ -52,7 +61,7 @@ Two known causes. The mundane one: nothing qualified. ADRs need all three gates,
 That is the skill failing to load its two dependencies. Because `SKILL.md` is a one-line delegation, an agent that does not pick up [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) guesses at what grilling means, and you get an undifferentiated question dump. Partial loading is the more confusing case: `grilling` loads, `domain-modeling` does not, and you get a good interview with no paper trail. It correlates with model and [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level, and it is the most reported problem with this skill. If you suspect it, ask the agent directly which skills it loaded.
 
 **Where did all my other decisions go?**
-Into the conversation only. This is the most substantive open complaint about the skill: the glossary is not a spec, most answers do not earn an ADR, and there is no ledger tying each resolved answer through to a spec, a ticket and a test. Precise answers (ordering guarantees, negative requirements, numeric defaults) get softened into weaker prose downstream, and the result can look complete while missing the thing you actually decided. The mitigation available today is to keep the session and feed it straight to [to-spec](https://aihero.dev/skills-to-spec), and to re-read the spec against your own answers rather than assuming it captured them.
+Into the design record. The settled plan and the reasoning behind it now land in the repo's planning-doc location, matched to whatever convention the repo already uses, so the design no longer lives only in the conversation. This was the skill's most substantive open complaint, because the glossary is not a spec and most answers do not earn an ADR. The record complements, rather than replaces, feeding the session to [to-spec](https://aihero.dev/skills-to-spec): keep the session and hand it straight on, and re-read the resulting spec against your own answers, because precise answers (ordering guarantees, negative requirements, numeric defaults) can still get softened into weaker prose downstream.
 
 **Can I point it at an existing repo that has no docs at all?**
 Yes. This is the right skill for a codebase with no ADRs, no domain language and no design principles: invoke it and say "help me document my repo". The community pattern pairs it with [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) for building or repairing a `CONTEXT.md`. Expect to steer it: it will read code and ask you about what it finds, and you are the one who says which of the words already in the codebase are the right ones.
@@ -69,6 +78,7 @@ Nobody is happy with the name. There is an open suggestion to rename it `grill-d
 - The glossary reads as pure vocabulary (your project's words with tight definitions) and contains no implementation detail or spec-like prose.
 - Questions the codebase can answer get answered by reading the codebase, not asked of you.
 - You get few or no ADRs, and the ones you get are decisions you would be annoyed to have to re-litigate.
+- A design record appears in the planning-doc location your repo already uses (a single dated file when it has no convention), holding the plan you settled and why, not just the glossary.
 - It challenges a word you used because your existing glossary defines it differently.
 
 ## Where it fits
