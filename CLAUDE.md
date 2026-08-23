@@ -1,3 +1,27 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+A collection of agent **skills** (each a folder with a `SKILL.md`) shipped two ways: as the `mattpocock-skills` Claude Code plugin (`.claude-plugin/plugin.json`) and as editable Agent Skills via skills.sh. There is no application to build or run: the "source" is Markdown instructions plus a small amount of glue (bash scripts, one Node script). Every skill is dual-harness, carrying both a `SKILL.md` (Claude Code) and an `agents/openai.yaml` (Codex) that must stay in sync. `CONTEXT.md` holds the domain vocabulary (Issue tracker, Issue, Decision ticket, Triage role); read it before naming things. The `.agents/` folder holds the authoring docs referenced throughout this file (`invocation.md`, `writing-docs.md`, `install-block.md`, `adr/`).
+
+This is a fork of https://github.com/mattpocock/skills, kept for local customization.
+
+## Commands
+
+- `claude plugin validate . --strict` — run after editing `.claude-plugin/plugin.json` or `marketplace.json`.
+- `npm run check-plugin-version` — asserts `plugin.json` version matches `package.json`; run after either changes.
+- `scripts/list-skills.sh` — list every `SKILL.md` path in the repo.
+- `scripts/link-skills.sh` — symlink every skill into `~/.claude/skills` and `~/.agents/skills` for local use; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
+
+### Release flow (changesets)
+
+- `npm run changeset` — add a changeset describing any user-facing skill change.
+- `npm run version` — applies changesets and runs `sync-plugin-version.mjs` to copy `package.json`'s version into `plugin.json`. Do not hand-edit either version.
+
+## Skill authoring conventions
+
 Skills are organized into bucket folders under `skills/`:
 
 - `engineering/`: daily code work
