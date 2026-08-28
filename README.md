@@ -71,6 +71,21 @@ In your agent, run it once per repo. It will:
 
 ### 3. Bam - you're ready to go.
 
+## Onboarding a repo
+
+Install the skills one of two ways, then run [`/setup-sk-skills`](./skills/engineering/setup-sk-skills/SKILL.md) once to point them at your issue tracker, triage labels, and docs location.
+
+```mermaid
+flowchart TD
+    A["Install the skills"] --> B{"Which install?"}
+    B -->|"Claude Code plugin (managed)"| C["claude plugin install sk-skills@sammykumar"]
+    B -->|"skills.sh (editable copies)"| D["npx skills@latest add sammykumar/skills"]
+    C --> E["/setup-sk-skills (once per repo)"]
+    D --> E
+    E --> F["Set issue tracker, triage labels, and docs location"]
+    F --> G(["Ready to build"])
+```
+
 ## Why These Skills Exist
 
 I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
@@ -171,26 +186,7 @@ And crucially, [`/improve-codebase-architecture`](./skills/engineering/improve-c
 
 Software engineering fundamentals matter more than ever. These skills are my best effort at condensing these fundamentals into repeatable practices, to help you ship the best apps of your career. Enjoy.
 
-## The two main flows
-
-Two flows carry most of the work: onboard a repo once, then run the feature flow every time you build something.
-
-### Onboarding a repo
-
-Install the skills one of two ways, then run [`/setup-sk-skills`](./skills/engineering/setup-sk-skills/SKILL.md) once to point them at your issue tracker, triage labels, and docs location.
-
-```mermaid
-flowchart TD
-    A["Install the skills"] --> B{"Which install?"}
-    B -->|"Claude Code plugin (managed)"| C["claude plugin install sk-skills@sammykumar"]
-    B -->|"skills.sh (editable copies)"| D["npx skills@latest add sammykumar/skills"]
-    C --> E["/setup-sk-skills (once per repo)"]
-    D --> E
-    E --> F["Set issue tracker, triage labels, and docs location"]
-    F --> G(["Ready to build"])
-```
-
-### Building a new feature
+## Building a new feature
 
 Start every change with a grilling session, then either implement it directly or split it into tickets first. [`/implement`](./skills/engineering/implement/SKILL.md) drives [`/tdd`](./skills/engineering/tdd/SKILL.md) internally and closes out with [`/code-review`](./skills/engineering/code-review/SKILL.md) before committing.
 
