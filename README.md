@@ -171,6 +171,44 @@ And crucially, [`/improve-codebase-architecture`](./skills/engineering/improve-c
 
 Software engineering fundamentals matter more than ever. These skills are my best effort at condensing these fundamentals into repeatable practices, to help you ship the best apps of your career. Enjoy.
 
+## The two main flows
+
+Two flows carry most of the work: onboard a repo once, then run the feature flow every time you build something.
+
+### Onboarding a repo
+
+Install the skills one of two ways, then run [`/setup-sk-skills`](./skills/engineering/setup-sk-skills/SKILL.md) once to point them at your issue tracker, triage labels, and docs location.
+
+```mermaid
+flowchart TD
+    A["Install the skills"] --> B{"Which install?"}
+    B -->|"Claude Code plugin (managed)"| C["claude plugin install sk-skills@sammykumar"]
+    B -->|"skills.sh (editable copies)"| D["npx skills@latest add sammykumar/skills"]
+    C --> E["/setup-sk-skills (once per repo)"]
+    D --> E
+    E --> F["Set issue tracker, triage labels, and docs location"]
+    F --> G(["Ready to build"])
+```
+
+### Building a new feature
+
+Start every change with a grilling session, then either implement it directly or split it into tickets first. [`/implement`](./skills/engineering/implement/SKILL.md) drives [`/tdd`](./skills/engineering/tdd/SKILL.md) internally and closes out with [`/code-review`](./skills/engineering/code-review/SKILL.md) before committing.
+
+```mermaid
+flowchart TD
+    A["/grill-with-docs: sharpen the idea, write CONTEXT.md and ADRs"] --> B{"Needs a runnable answer?"}
+    B -->|"Yes"| P["/prototype throwaway code, bridged by /handoff"]
+    B -->|"No"| C{"Multi-session build?"}
+    P --> C
+    C -->|"No, single session"| I["/implement"]
+    C -->|"Yes"| S["/to-spec"] --> T["/to-tickets"] --> I
+    I --> J["drives /tdd (red-green-refactor)"]
+    J --> K["/code-review (Standards and Spec)"]
+    K --> L(["Commit and ship"])
+```
+
+Forget which skill fits a given moment? [`/ask-sk`](./skills/engineering/ask-sk/SKILL.md) is the router over all of these. For an effort too big to hold in one session, start at [`/wayfinder`](./skills/engineering/wayfinder/SKILL.md), which charts a map of decision tickets before handing off to `/to-spec`.
+
 ## Reference
 
 These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
