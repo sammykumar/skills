@@ -19,7 +19,7 @@ Reach for it when the build is too big for one agent session and has to survive 
 
 ## Prerequisites
 
-`to-spec` publishes the spec as an issue, so setup-sk-skills must have configured a tracker and the triage-label vocabulary for this repo first. Either kind works: a real tracker like GitHub, or local markdown files under `.scratch/`, which is supported out of the box.
+`to-spec` publishes the spec as an issue, so setup-sk-skills must have configured a tracker and the triage-label vocabulary for this repo first. Either kind works: a real tracker like GitHub, or Repo PDD Markdown files under `docs/plans/`, which is supported out of the box.
 
 ## The spec is a decision record
 
