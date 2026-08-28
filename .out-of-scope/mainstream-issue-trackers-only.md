@@ -15,7 +15,7 @@ Stars, age, and download counts are useful signals when making the call but none
 
 The escape hatches for non-mainstream trackers already exist:
 
-- `local markdown` for lightweight in-repo tracking.
+- Repo PDD Markdown for lightweight in-repo tracking.
 - `other/custom` for users who want to wire something up themselves.
 
 Neither requires the core skills to know about the specific tool.
