@@ -103,6 +103,8 @@ flowchart TD
     K --> L(["Commit and ship"])
 ```
 
+Want the whole route driven for you? [`/auto-implement <feature>`](./skills/engineering/auto-implement/SKILL.md) walks this diagram end to end from a feature you name up front: it grills, records the design, then either builds it here or splits it into tickets and hands them back. It stops before building the tickets, because each one wants its own fresh context window.
+
 Forget which skill fits a given moment? [`/ask-sk`](./skills/engineering/ask-sk/SKILL.md) is the router over all of these. For an effort too big to hold in one session, start at [`/wayfinder`](./skills/engineering/wayfinder/SKILL.md), which charts a map of decision tickets before handing off to `/to-spec`.
 
 ## Reference
@@ -112,6 +114,7 @@ These split on two axes. **Bucket**: engineering skills are for daily code work,
 | Skill | Bucket | Invocation | What it does |
 | --- | --- | --- | --- |
 | **[ask-sk](./skills/engineering/ask-sk/SKILL.md)** | Engineering | User-invoked | Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo. |
+| **[auto-implement](./skills/engineering/auto-implement/SKILL.md)** | Engineering | User-invoked | Drive the whole idea-to-ship flow on a feature you name up front: grill it, record the design, then either build it here in one session or split it into tickets and hand them back. |
 | **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** | Engineering | User-invoked | Grilling session that also documents as it goes: sharpening terminology in `CONTEXT.md`, recording hard decisions as ADRs, and writing the resolved design into your repo's planning-doc location. |
 | **[triage](./skills/engineering/triage/SKILL.md)** | Engineering | User-invoked | Move issues through a state machine of triage roles. |
 | **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** | Engineering | User-invoked | Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick. |
@@ -128,13 +131,16 @@ These split on two axes. **Bucket**: engineering skills are for daily code work,
 | **[codebase-design](./skills/engineering/codebase-design/SKILL.md)** | Engineering | Model-invoked | Shared discipline and vocabulary for designing deep modules: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. |
 | **[code-review](./skills/engineering/code-review/SKILL.md)** | Engineering | Model-invoked | Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents so neither pollutes the other. |
 | **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** | Engineering | Model-invoked | Work through an in-progress git merge or rebase conflict hunk by hunk, resolving by intent traced to each side's primary source, then finish the operation (never `--abort`). |
+| **[writing-specs](./skills/engineering/writing-specs/SKILL.md)** | Engineering | Model-invoked | Synthesize the current conversation into a spec and publish it to the project issue tracker. The engine under `/to-spec`. |
+| **[splitting-tickets](./skills/engineering/splitting-tickets/SKILL.md)** | Engineering | Model-invoked | Break a plan, spec, or conversation into tracer-bullet tickets with their blocking edges, published to the configured tracker. The engine under `/to-tickets`. |
+| **[recording-designs](./skills/engineering/recording-designs/SKILL.md)** | Engineering | Model-invoked | Write the resolved design record into whatever planning-doc convention the repo already uses. The engine `/grill-with-docs` and `/auto-implement` share. |
 | **[wizard](./skills/engineering/wizard/SKILL.md)** | Engineering | Model-invoked | Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. |
 | **[grill-me](./skills/productivity/grill-me/SKILL.md)** | Productivity | User-invoked | Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved. |
 | **[handoff](./skills/productivity/handoff/SKILL.md)** | Productivity | User-invoked | Compact the current conversation into a handoff document so another agent can continue the work. |
 | **[teach](./skills/productivity/teach/SKILL.md)** | Productivity | User-invoked | Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace. |
 | **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** | Productivity | User-invoked | Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject. |
 | **[wait-what](./skills/productivity/wait-what/SKILL.md)** | Productivity | User-invoked | Fire this the moment a message doesn't land. The agent re-pitches it with the context you're missing, in plain English, using your `CONTEXT.md` vocabulary. |
-| **[grilling](./skills/productivity/grilling/SKILL.md)** | Productivity | Model-invoked | Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `triage`, `wayfinder` and `improve-codebase-architecture`. |
+| **[grilling](./skills/productivity/grilling/SKILL.md)** | Productivity | Model-invoked | Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `auto-implement`, `triage`, `wayfinder` and `improve-codebase-architecture`. |
 | **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** | Productivity | Model-invoked | Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer. |
 
 ## Why These Skills Exist

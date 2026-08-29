@@ -14,6 +14,8 @@ A **flow** is a path through the skills. Most paths run along one **main flow**,
 
 The route most work travels. You have an idea and want it built.
 
+**If you already know this is the route, don't walk it step by step: `/auto-implement <feature>` drives the whole thing.** It runs steps 1 to 3 below in one context window from a feature you name up front, taking the branch at step 3 with you rather than asking which skill comes next, and stopping before `/implement` when the answer is tickets, because each ticket wants its own fresh window. Reach for the individual skills below when you want to stop between phases, or when you are picking up a flow part-way through.
+
 1. **`/grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining what it learns in `CONTEXT.md` and ADRs, and writing the resolved design into your repo's planning-doc location. (No working directory? Use `/grill-me` instead, covered under Standalone. Both run the same `/grilling` primitive; `grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
 2. **Branch: can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`/handoff`** in both directions (a prototype lives in its own directory, which is exactly what `/handoff` is for; see Phase boundaries):
    - **`/handoff`** out, then open a fresh session against that file,
@@ -24,6 +26,10 @@ The route most work travels. You have an idea and want it built.
    - **No** → **`/implement`** right here, in the same context window.
 
    Either way, **`/implement`** builds each issue by driving **`/tdd`** internally (one red-green slice at a time), then closes out by running **`/code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
+
+### Wrappers and engines
+
+Three of the names above are thin shells. `/grill-with-docs` is a shell over `grilling`, `domain-modeling` and `recording-designs`; `/to-spec` over `writing-specs`; `/to-tickets` over `splitting-tickets`. The engines are model-invoked, so you *can* type them, and `/auto-implement` calls them directly because a skill cannot call a user-invoked one. Route by the wrapper names anyway: they behave identically and they are the names on this map.
 
 ### Context hygiene
 

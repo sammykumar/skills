@@ -21,6 +21,12 @@ The Skill tool takes one skill per call. A step that needs two skills is two cal
 
 This whole convention only holds when the named skill is **model-invoked**. A user-invoked skill can never be reached this way, full stop: per the invariant above, no other skill can call it, including by naming it to the Skill tool. When a step's precondition is a user-invoked skill (e.g. `setup-sk-skills`), phrase it as an instruction for the human to act on: "tell the user to run `/setup-sk-skills`", never as a Skill tool call.
 
+## Wrapper and engine
+
+A flow that needs to be **driven** by another skill cannot be user-invoked, per the invariant above. Where we want both (a name the human types, and a target another skill can call), the flow splits in two: a **wrapper**, user-invoked, whose whole body is a Skill call, and an **engine**, model-invoked, holding the actual instructions. `/grill-with-docs` over `grilling`, `domain-modeling` and `recording-designs`; `/implement` over `tdd` and `code-review`; `/to-spec` over `writing-specs`; `/to-tickets` over `splitting-tickets`.
+
+Reach for the split only when a second caller actually exists. A user-invoked skill with no driver above it stays whole. The reasoning, and the alternatives rejected, are in [adr/0006](./adr/0006-drivable-flows-use-wrapper-plus-engine.md).
+
 ## Passive vs active domain work
 
 Merely _reading_ `CONTEXT.md` for vocabulary is a one-line prose pointer, not the `domain-modeling` skill. Only the active build/sharpen discipline (challenge terms, edge-case scenarios, write ADRs, update `CONTEXT.md` inline) is `domain-modeling`.
