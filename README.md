@@ -42,7 +42,7 @@ It ships from this repo's own marketplace, so add the marketplace first, then in
 npx skills@latest add sammykumar/skills
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take, so make sure `setup-sk-skills` is one of them.**
+Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-sk-skills` and `update-sk-skills` are both among them.**
 
 A native Codex plugin is on the roadmap (see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)).
 
@@ -57,7 +57,7 @@ Use the same installer, on any agent, including Claude Code:
 npx skills@latest add sammykumar/skills
 ```
 
-It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull the latest changes when you want them with `npx skills update`.
+It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull the latest changes when you want them by running `/update-sk-skills`.
 
 </details>
 
@@ -71,6 +71,11 @@ In your agent, run it once per repo. It will:
 - Offer to mine your past sessions in that repo for the words you actually use, and seed `CONTEXT.md` with the terms you confirm
 
 ### 3. Bam - you're ready to go.
+
+### Keeping them up to date
+
+Run `/update-sk-skills`. It detects how the skills were installed on this machine (plugin, skills.sh, or a dev checkout) and runs the matching update, rather than assuming a route from the harness you happen to be in.
+
 
 ## Onboarding a repo
 
@@ -120,6 +125,7 @@ These split on two axes. **Bucket**: engineering skills are for daily code work,
 | **[triage](./skills/engineering/triage/SKILL.md)** | Engineering | User-invoked | Move issues through a state machine of triage roles. |
 | **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** | Engineering | User-invoked | Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick. |
 | **[setup-sk-skills](./skills/engineering/setup-sk-skills/SKILL.md)** | Engineering | User-invoked | Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout), and seed `CONTEXT.md` from the vocabulary in your past sessions. Run once per repo before using the other engineering skills. |
+| **[update-sk-skills](./skills/engineering/update-sk-skills/SKILL.md)** | Engineering | User-invoked | Update the skills on this machine, after detecting how they were actually installed: the Claude Code plugin, skills.sh, or a dev checkout. |
 | **[to-spec](./skills/engineering/to-spec/SKILL.md)** | Engineering | User-invoked | Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed. |
 | **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** | Engineering | User-invoked | Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker. |
 | **[implement](./skills/engineering/implement/SKILL.md)** | Engineering | User-invoked | Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing. |

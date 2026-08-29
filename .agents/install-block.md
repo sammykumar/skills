@@ -34,7 +34,7 @@ The plugin is Claude Code only. Everywhere else, [skills.sh](https://skills.sh/s
 npx skills@latest add sammykumar/skills
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-sk-skills` is one of them.**
+Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-sk-skills` and `update-sk-skills` are both among them.**
 
 </canonical-block>
 
@@ -53,6 +53,16 @@ npx skills@latest update <name>
 </canonical-block>
 
 `skills@latest` is the pinned spelling in all three.
+
+## Updating
+
+Which command updates an installation depends on which route installed it, and a user cannot be assumed to know. `/update-sk-skills` detects the route from the evidence on disk and runs the right command, so it is the answer to "how do I update", on every route and in every harness.
+
+<canonical-block name="updating">
+
+Run `/update-sk-skills`. It detects how the skills were installed on this machine (plugin, skills.sh, or a dev checkout) and runs the matching update, rather than assuming a route from the harness you happen to be in.
+
+</canonical-block>
 
 ## The two routes are exclusive
 

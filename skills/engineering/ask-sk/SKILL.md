@@ -91,6 +91,8 @@ Off the main flow entirely.
 - **`/teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
 
-## Precondition
+## Setup and upkeep
 
 **`/setup-sk-skills`**: run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume, and to seed `CONTEXT.md` from the vocabulary in your past sessions in that repo. Custom issue trackers also work.
+
+**`/update-sk-skills`**: run when you want the skills themselves brought up to date. It works out how they reached this machine (the Claude Code plugin, skills.sh, or a symlinked dev checkout), reports what it found, and runs the matching update, so you never have to remember which route you took.
