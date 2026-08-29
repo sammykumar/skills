@@ -1,0 +1,53 @@
+{
+  "title": "E2E Data Tracking",
+  "direction": "LR",
+  "rows": [
+    {
+      "id": "shipped",
+      "title": "SHIPPED: Production since v4.21.10 (2026-07-28)",
+      "nodes": [
+        { "id": "site", "category": "Node/Framework", "brand": "Next.js", "title": "MKTG Site", "instance": "Production" },
+        { "id": "dl", "category": "Node/Language", "brand": "JavaScript", "title": "window.\ndataLayer", "instance": "ad_phone_click" },
+        { "id": "gtm", "category": "Node/Content & Marketing", "brand": "Google Tag Manager", "title": "Google Tag\nManager", "instance": "GTM-5KJTHP3M" },
+        { "id": "gtag", "category": "Node/Content & Marketing", "brand": "Google Tag", "title": "Google tag", "instance": "AW-794559089" },
+        { "id": "ga4", "category": "Node/Content & Marketing", "brand": "Google Analytics 4", "title": "GA4", "instance": "G-SRHWP4RYKP" },
+        { "id": "ads", "category": "Node/Content & Marketing", "brand": "Google Ads", "title": "Google Ads", "instance": "626-214-8456", "lane": "sub" }
+      ],
+      "edges": [
+        { "from": "site", "to": "dl" },
+        { "from": "dl", "to": "gtm" },
+        { "from": "gtm", "to": "gtag" },
+        { "from": "gtag", "to": "ga4" },
+        { "from": "gtag", "to": "ads", "label": "conversions" }
+      ],
+      "notes": [
+        { "on": "gtm", "kind": "ok", "text": "digit-match + custom-event triggers. NO phone numbers in container." }
+      ]
+    },
+    {
+      "id": "planned",
+      "title": "PLANNED: CRM offline conversions (Phases 2–4)",
+      "nodes": [
+        { "id": "twilio", "category": "Node/API & Services", "brand": "Twilio", "title": "Twilio", "instance": "DNI per campaign" },
+        { "id": "crm", "category": "Node/Framework", "brand": "Laravel", "title": "FastLease CRM", "instance": "Leased / Moved-in" },
+        { "id": "dm", "category": "Node/API & Services", "brand": "REST API", "title": "Data Manager\nAPI", "instance": "events:ingest" },
+        { "id": "ads2", "category": "Node/Content & Marketing", "brand": "Google Ads", "title": "Google Ads", "instance": "value bidding" }
+      ],
+      "edges": [
+        { "from": "twilio", "to": "crm", "label": "inbound call" },
+        { "from": "crm", "to": "dm", "label": "Leased / Moved-in" },
+        { "from": "dm", "to": "ads2", "label": "offline + real $" }
+      ],
+      "notes": [
+        { "on": "dm", "kind": "warn", "text": "Phase 3: gclid + hashed email/phone + real conversionValue" }
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "site", "to": "twilio", "label": "form submit" }
+  ],
+  "annotations": [
+    { "kind": "ok", "title": "SHIPPED 2026-07-28", "text": "The app declares the click; the container matches digits and event names, never a formatted number. A Prismic or CRM number change cannot break tracking." },
+    { "kind": "warn", "title": "PLANNED Phases 2–4", "text": "Wire user_data (ECL) in GTM, upload real conversion values from CRM, then return HOU campaigns to MAXIMIZE_CONVERSION_VALUE." }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "W": 140,
+  "PAD": 18,
+  "GAP": 12,
+  "LINE_H": 20,
+  "TITLE_Y": 18,
+  "TITLE_H": 40,
+  "ICON_Y": 70,
+  "ICON_H": 72,
+  "ID_Y": 154,
+  "ID_H": 20,
+  "DETAIL_Y": 186,
+  "DETAIL_H": 80,
+  "H_COMPACT": 192,
+  "H_EXTENDED": 284,
+  "_scaling": "Icons scale per brand: min(1, ICON_H / brand.icon.h) from library-inventory.json. Shape-class constants were removed because they were unused and wrong (0.6372 matched Server's 113px racks but not Data Store's 112.5px cylinders at 0.64), and six distinct factors occur in practice.",
+  "v2PageId": "352:113",
+  "baseComponentId": "354:113",
+  "noteSetId": "357:131"
+}

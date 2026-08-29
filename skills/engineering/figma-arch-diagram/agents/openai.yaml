@@ -1,0 +1,3 @@
+interface:
+  display_name: "Figma Arch Diagram"
+  short_description: "Build architecture diagrams on a FigJam board"
