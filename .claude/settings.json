@@ -1,0 +1,28 @@
+{
+  "enabledPlugins": {
+    "sk-skills@sammykumar": false
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}\"/skills/engineering/domain-modeling/hooks/detect-new-repo.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}\"/skills/engineering/domain-modeling/hooks/detect-instruction-edit.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
