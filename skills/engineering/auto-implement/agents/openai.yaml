@@ -1,0 +1,5 @@
+interface:
+  display_name: "Auto Implement"
+  short_description: "Drive a named feature from idea to build or tickets"
+policy:
+  allow_implicit_invocation: false

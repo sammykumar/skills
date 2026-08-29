@@ -20,6 +20,7 @@
   ],
   "skills": [
     "./skills/engineering/ask-sk",
+    "./skills/engineering/auto-implement",
     "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/triage",
@@ -43,6 +44,9 @@
     "./skills/productivity/teach",
     "./skills/productivity/to-questionnaire",
     "./skills/productivity/wait-what",
-    "./skills/productivity/writing-for-agents"
+    "./skills/productivity/writing-for-agents",
+    "./skills/engineering/writing-specs",
+    "./skills/engineering/splitting-tickets",
+    "./skills/engineering/recording-designs"
   ]
 }

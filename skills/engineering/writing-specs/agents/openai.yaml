@@ -1,0 +1,3 @@
+interface:
+  display_name: "Writing Specs"
+  short_description: "Synthesize a conversation into a published spec"

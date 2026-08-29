@@ -1,6 +1,11 @@
+---
+name: recording-designs
+description: "Write the resolved design record into the repo's planning-doc location, matching whatever planning convention the repo already uses (PDD, Superpowers, or a single default file). Use when an interview or design discussion has settled decisions worth writing down, or when another flow needs to know where a plan or design doc belongs in this repo."
+---
+
 # Where the design record lands
 
-`grill-with-docs` leaves one artifact `domain-modeling` does not: the **design record**, the resolved design tree with the decisions and the reasoning behind them, and the tasks that fall out of it. It lands in whatever planning-doc convention the repo already uses, so a repo you have set up before keeps its own layout and you carry no location in your head.
+The **design record** is the artifact `domain-modeling` does not leave: the resolved design tree with the decisions and the reasoning behind them, and the tasks that fall out of it. It lands in whatever planning-doc convention the repo already uses, so a repo you have set up before keeps its own layout and you carry no location in your head.
 
 Detect the convention in this order, first match wins:
 

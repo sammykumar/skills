@@ -4,6 +4,6 @@ description: A relentless interview to sharpen a plan or design, which also crea
 disable-model-invocation: true
 ---
 
-Call the Skill tool twice, for "grilling" and "domain-modeling".
+Call the Skill tool three times, for "grilling", "domain-modeling", and "recording-designs".
 
-As the interview settles decisions, record the resolved design in the repo's planning-doc location, following [PLAN-LOCATION.md](./PLAN-LOCATION.md): match the convention the repo already uses, and only where it has none fall back to the default there. `domain-modeling` keeps `CONTEXT.md` a glossary and writes ADRs; the design record is the plan itself, the shape you settled on and the reasoning behind it.
+As the interview settles decisions, record the resolved design in the repo's planning-doc location, following `recording-designs`. `domain-modeling` keeps `CONTEXT.md` a glossary and writes ADRs; the design record is the plan itself, the shape you settled on and the reasoning behind it.
