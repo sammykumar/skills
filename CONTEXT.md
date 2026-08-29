@@ -26,11 +26,27 @@ _Avoid_: session log, chat history, conversation file
 The language the user actually types, as distinct from the language the codebase is named in. Mined from **Session transcripts** and proposed as terms for `CONTEXT.md`. A single proposed item is just a *term*, unaccepted until the user confirms it.
 _Avoid_: user's words, mined vocabulary, vocab corpus
 
+**Matt's plugin**:
+The upstream `mattpocock-skills` plugin this repo forked from. Installed alongside `sk-skills` and disabled per-repo while dogfooding, so the locally symlinked skills win.
+_Avoid_: matt's skills
+
+**Plugin marketplace**:
+The Claude Code marketplace listing that serves `sk-skills` to a **Consumer repo**. Distinct from `.claude-plugin/marketplace.json`, which is the self-marketplace fallback.
+
+**Consumer repo**:
+A repo that installs the skills as a published plugin, as opposed to this repo, which runs them live from the working tree via `scripts/link-skills.sh`.
+_Avoid_: other repos
+
+**Slash command**:
+A `/name` invocation. It covers two different things and the distinction matters: a **user-invoked skill** (`disable-model-invocation: true`) ships in the plugin, while a project command like `/ship` lives in a repo's own `.claude/commands/` and is not a skill at all.
+_Avoid_: "slash command" where the repo's docs say "user-invoked skill"
+
 ## Relationships
 
 - An **Issue tracker** holds many **Issues**
 - An **Issue** carries one **Triage role** at a time
 - A **Decision ticket** is an **Issue** (a child of a `wayfinder:map`)
+- A **Plugin marketplace** serves the plugin to many **Consumer repos**
 - **User vocab** is mined from many **Session transcripts** and becomes terms in this glossary only once the user accepts them
 
 ## Flagged ambiguities
