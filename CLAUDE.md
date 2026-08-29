@@ -14,7 +14,7 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 - `npm run check-plugin-version` — asserts `plugin.json` version matches `package.json`; run after either changes.
 - `npm test` — runs Node's built-in test runner over `skills/**/*.test.mjs`; run after editing any skill's `.mjs` glue.
 - `scripts/list-skills.sh` — list every `SKILL.md` path in the repo.
-- `scripts/link-skills.sh` — symlink every skill into `~/.claude/skills` and `~/.agents/skills` for local use; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
+- `scripts/link-skills.sh` — symlink the repo's skills into the local harness directories for dogfooding; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
 - `scripts/scaffold-ship.sh /path/to/repo [branch]` — cut a repo's `/ship` command from the canonical template into its `.claude/commands/ship.md`. See below.
 
 ### The `/ship` command (per-repo, from a template)
@@ -50,7 +50,17 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 
 [`ask-sk`](./skills/engineering/ask-sk/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-sk`'s `SKILL.md` and update it so the map stays accurate: a new skill it never mentions, or a stale one it still routes to, is a router that lies.
 
-To (re)link every skill into the local harness skill directories (`~/.claude/skills`, `~/.agents/skills`), run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps installed skills current; re-run the script after adding, removing, or renaming a skill.
+To (re)link the repo's skills for local dogfooding, run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps them current; re-run the script after adding, removing, or renaming a skill.
+
+Where each skill lands depends on whether the `sk-skills` plugin already ships it, because a skill served from both places would exist twice in every repo, once pinned to a release and once pointing at the working tree, with no way to tell which is running:
+
+| Destination | Skills | Scope |
+| --- | --- | --- |
+| `<repo>/.claude/skills` | promoted (`engineering/`, `productivity/`) | this repo only, where dogfooding happens |
+| `~/.claude/skills` | non-promoted (`misc/`, `in-progress/`) | Claude Code, everywhere |
+| `~/.agents/skills` | every skill | Codex, everywhere, since no Codex plugin exists |
+
+The script prunes the repo-local directory on every run, so a renamed or demoted skill does not linger as a stale symlink. Everywhere else, the promoted skills come from the plugin, which this repo disables in `.claude/settings.json` so the working-tree copies win here and only here.
 
 No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 
