@@ -1,6 +1,6 @@
 ---
 name: setup-sk-skills
-description: "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills."
+description: "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout, and seed CONTEXT.md from the vocabulary in your past sessions. Run once before first use of the other engineering skills."
 disable-model-invocation: true
 ---
 
@@ -11,6 +11,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 - **Issue tracker**: where issues live (GitHub by default; Repo PDD Markdown is also supported out of the box)
 - **Triage labels**: the strings used for the five canonical triage roles
 - **Domain docs**: where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
+- **User vocab**: the language you actually type, mined from past session transcripts and proposed as glossary terms
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
 
@@ -27,6 +28,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/agents/`: does this skill's prior output already exist?
 - The repo's canonical plan/docs directory: sweep in precedence order `docs/plans/`, `docs/plan/`, `plans/`, `plan/`, `docs/specs/`, `specs/`, `.scratch/`, and take the first one that exists as the repo's Repo PDD Markdown directory. Record which (if any) was found so Section A can reuse it. `.scratch/` is still recognized here for backward-compat, but it is no longer the default
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
+- Past session transcripts for this repo. Run `node <skill-dir>/mine-vocab.mjs --json --count-only` from the repo root and read the `found` counts: they tell you how many Claude Code and Codex sessions exist for this working directory. A repo with none skips Section D. Don't run the full mine yet; Section D does that once the user opts in.
 - Monorepo signals: a `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or a populated `packages/*` with its own `src/`. These are present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
 
 ### 2. Present findings and ask
@@ -60,12 +62,35 @@ The defaults are the five canonical roles, each label string equal to its name: 
 
 Offer **multi-context** (a root `CONTEXT-MAP.md` pointing to per-context `CONTEXT.md` files) only when exploration found monorepo signals. Then confirm which layout they want.
 
+**Section D: User vocab.** Skip this section entirely if exploration found no session transcripts for this repo.
+
+Otherwise ask exactly one question, stating the count:
+
+> I found N past sessions for this repo. Want me to mine them for the words you actually use and propose glossary terms? (recommended: **yes**)
+
+On **yes**, run the miner from the repo root:
+
+```
+node <skill-dir>/mine-vocab.mjs
+```
+
+It reads newest sessions first, stops at a cap, and prints a ranked shortlist to stdout. It writes nothing: no transcript, quote, or intermediate file ever lands on disk, so nothing can leak into a commit.
+
+Read the shortlist and present it as a table the user can pick from: the term, how often and across how many sessions it was used, one evidence quote, and a one-line definition you propose from the evidence. Where a candidate carries an `also called` list, that is the raw material for an `_Avoid_` line: the dominant name is the term, the others are what to avoid. That grouping is mechanical and only catches names sharing a tail ("stuck lead sweeper" and "stale lead sweeper"), so read across the whole shortlist for synonyms it could not see ("session log" and "chat history" name one thing and share no words) and fold those together yourself.
+
+Judge the evidence before you propose. A shortlist entry whose quotes are obviously machine-written (an automation posting into the session, a pasted log, a tracker notification) is not the user's vocabulary; drop it rather than asking about it. The ranking is a heuristic and cannot tell those apart. Say how many you dropped.
+
+Write only the terms the user keeps, into `CONTEXT.md` at the location Section C settled, using the glossary format `domain-modeling` uses (term, definition, optional `_Avoid_` line). Terms already defined there, or already listed under an `_Avoid_`, are filtered by the miner and never re-proposed, so re-running setup on a repo with a glossary is additive.
+
+If the user keeps nothing, write nothing. An empty `CONTEXT.md` is a fine outcome and `domain-modeling` will fill it in lazily as before.
+
 ### 3. Confirm and edit
 
 Show the user a draft of:
 
 - The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
 - The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
+- The `CONTEXT.md` entries for the terms the user kept in Section D, if any
 
 Let them edit before writing.
 
@@ -115,4 +140,4 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 
 ### 5. Done
 
-Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
+Tell the user the setup is complete and which engineering skills will now read from these files. If Section D wrote glossary terms, say how many and remind them `domain-modeling` sharpens the glossary from here on. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.

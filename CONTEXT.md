@@ -18,11 +18,20 @@ A `wayfinder` unit: a child **Issue** of a `wayfinder:map` holding a *question* 
 **Triage role**:
 A canonical state-machine label applied to an **Issue** during triage (e.g. `needs-triage`, `ready-for-afk`). Each role maps to a real label string in the **Issue tracker** via `docs/agents/triage-labels.md`.
 
+**Session transcript**:
+The on-disk record of a past agent session: one JSONL file per session, written by Claude Code under `~/.claude/projects/<cwd-slug>/` and by Codex under `~/.codex/sessions/<Y>/<M>/<D>/`. Read-only input to `setup-sk-skills`; never written by any skill here.
+_Avoid_: session log, chat history, conversation file
+
+**User vocab**:
+The language the user actually types, as distinct from the language the codebase is named in. Mined from **Session transcripts** and proposed as terms for `CONTEXT.md`. A single proposed item is just a *term*, unaccepted until the user confirms it.
+_Avoid_: user's words, mined vocabulary, vocab corpus
+
 ## Relationships
 
 - An **Issue tracker** holds many **Issues**
 - An **Issue** carries one **Triage role** at a time
 - A **Decision ticket** is an **Issue** (a child of a `wayfinder:map`)
+- **User vocab** is mined from many **Session transcripts** and becomes terms in this glossary only once the user accepts them
 
 ## Flagged ambiguities
 

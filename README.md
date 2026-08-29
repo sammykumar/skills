@@ -68,12 +68,13 @@ In your agent, run it once per repo. It will:
 - Ask you which issue tracker you want to use (GitHub, Linear, or Repo PDD Markdown)
 - Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
 - Ask you where you want to save any docs we create
+- Offer to mine your past sessions in that repo for the words you actually use, and seed `CONTEXT.md` with the terms you confirm
 
 ### 3. Bam - you're ready to go.
 
 ## Onboarding a repo
 
-Install the skills one of two ways, then run [`/setup-sk-skills`](./skills/engineering/setup-sk-skills/SKILL.md) once to point them at your issue tracker, triage labels, and docs location.
+Install the skills one of two ways, then run [`/setup-sk-skills`](./skills/engineering/setup-sk-skills/SKILL.md) once to point them at your issue tracker, triage labels, and docs location, and to seed your glossary from past sessions.
 
 ```mermaid
 flowchart TD
@@ -118,7 +119,7 @@ These split on two axes. **Bucket**: engineering skills are for daily code work,
 | **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** | Engineering | User-invoked | Grilling session that also documents as it goes: sharpening terminology in `CONTEXT.md`, recording hard decisions as ADRs, and writing the resolved design into your repo's planning-doc location. |
 | **[triage](./skills/engineering/triage/SKILL.md)** | Engineering | User-invoked | Move issues through a state machine of triage roles. |
 | **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** | Engineering | User-invoked | Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick. |
-| **[setup-sk-skills](./skills/engineering/setup-sk-skills/SKILL.md)** | Engineering | User-invoked | Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills. |
+| **[setup-sk-skills](./skills/engineering/setup-sk-skills/SKILL.md)** | Engineering | User-invoked | Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout), and seed `CONTEXT.md` from the vocabulary in your past sessions. Run once per repo before using the other engineering skills. |
 | **[to-spec](./skills/engineering/to-spec/SKILL.md)** | Engineering | User-invoked | Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed. |
 | **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** | Engineering | User-invoked | Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker. |
 | **[implement](./skills/engineering/implement/SKILL.md)** | Engineering | User-invoked | Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing. |

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A collection of agent **skills** (each a folder with a `SKILL.md`) shipped two ways: as the `sk-skills` Claude Code plugin (`.claude-plugin/plugin.json`) and as editable Agent Skills via skills.sh. There is no application to build or run: the "source" is Markdown instructions plus a small amount of glue (bash scripts, one Node script). Every skill is dual-harness, carrying both a `SKILL.md` (Claude Code) and an `agents/openai.yaml` (Codex) that must stay in sync. `CONTEXT.md` holds the domain vocabulary (Issue tracker, Issue, Decision ticket, Triage role); read it before naming things. The `.agents/` folder holds the authoring docs referenced throughout this file (`invocation.md`, `writing-docs.md`, `install-block.md`, `adr/`).
+A collection of agent **skills** (each a folder with a `SKILL.md`) shipped two ways: as the `sk-skills` Claude Code plugin (`.claude-plugin/plugin.json`) and as editable Agent Skills via skills.sh. There is no application to build or run: the "source" is Markdown instructions plus a small amount of glue (bash scripts, two Node scripts, and a test suite over the one that carries real logic). Every skill is dual-harness, carrying both a `SKILL.md` (Claude Code) and an `agents/openai.yaml` (Codex) that must stay in sync. `CONTEXT.md` holds the domain vocabulary (Issue tracker, Issue, Decision ticket, Triage role); read it before naming things. The `.agents/` folder holds the authoring docs referenced throughout this file (`invocation.md`, `writing-docs.md`, `install-block.md`, `adr/`).
 
 This is a fork of https://github.com/mattpocock/skills, kept for local customization.
 
@@ -12,6 +12,7 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 
 - `claude plugin validate . --strict` — run after editing `.claude-plugin/plugin.json` or `marketplace.json`.
 - `npm run check-plugin-version` — asserts `plugin.json` version matches `package.json`; run after either changes.
+- `npm test` — runs Node's built-in test runner over `skills/**/*.test.mjs`; run after editing any skill's `.mjs` glue.
 - `scripts/list-skills.sh` — list every `SKILL.md` path in the repo.
 - `scripts/link-skills.sh` — symlink every skill into `~/.claude/skills` and `~/.agents/skills` for local use; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
 - `scripts/scaffold-ship.sh /path/to/repo [branch]` — cut a repo's `/ship` command from the canonical template into its `.claude/commands/ship.md`. See below.

@@ -1,5 +1,5 @@
 interface:
   display_name: "Setup SK Skills"
-  short_description: "Configure a repo for the skills"
+  short_description: "Configure a repo for the skills and seed its glossary"
 policy:
   allow_implicit_invocation: false
