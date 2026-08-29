@@ -1,4 +1,4 @@
-# mattpocock-skills
+# sk-skills
 
 ## 2.1.0
 
