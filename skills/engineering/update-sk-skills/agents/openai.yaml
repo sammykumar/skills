@@ -1,0 +1,5 @@
+interface:
+  display_name: "Update SK Skills"
+  short_description: "Detect how the skills were installed, then update them that way"
+policy:
+  allow_implicit_invocation: false

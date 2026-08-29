@@ -26,6 +26,7 @@
     "./skills/engineering/triage",
     "./skills/engineering/improve-codebase-architecture",
     "./skills/engineering/setup-sk-skills",
+    "./skills/engineering/update-sk-skills",
     "./skills/engineering/tdd",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
