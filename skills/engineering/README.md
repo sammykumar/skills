@@ -35,3 +35,4 @@ Model- or user-reachable (rich trigger phrasing so the model can reach for them)
 - **[writing-specs](./writing-specs/SKILL.md)**: Synthesize the current conversation into a spec and publish it to the project issue tracker. The engine under `/to-spec`.
 - **[splitting-tickets](./splitting-tickets/SKILL.md)**: Break a plan, spec, or conversation into tracer-bullet tickets with their blocking edges, published to the configured tracker. The engine under `/to-tickets`.
 - **[recording-designs](./recording-designs/SKILL.md)**: Write the resolved design record into whatever planning-doc convention the repo already uses. The engine `/grill-with-docs` and `/auto-implement` share.
+- **[figma-arch-diagram](./figma-arch-diagram/SKILL.md)**: Build or update an architecture, tech-stack, networking, or data-flow diagram on a FigJam board from the "Icon Lib - Editable" component library, authored as a spec and laid out by a tested engine so nothing is placed by hand.

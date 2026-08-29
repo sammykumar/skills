@@ -1,0 +1,150 @@
+{
+  "_comment": "Per-brand placeholder for the card's instance-ID band. Chosen to match the real identifier format that brand actually uses, so the card teaches the expected shape of the value. Overwritten per diagram; this is the library default only.",
+  "Node/Content & Marketing": {
+    "Sanity": "abc12xyz",
+    "Prismic": "my-repo",
+    "Google Tag": "AW-123456789",
+    "Google Tag Manager": "GTM-123456",
+    "Google Ads": "123-456-7890",
+    "Google Analytics 4": "G-ABC1234567",
+    "Meta Pixel": "1234567890"
+  },
+  "Node/Security & CDN": {
+    "Let's Encrypt": "*.example.com",
+    "SSL": "TLS 1.3",
+    "Akamai": "*.edgekey.net",
+    "Cloudflare Turnstile": "0x4AAAAAAA"
+  },
+  "Node/API & Services": {
+    "REST API": "/api/v1",
+    "GraphQL": "/graphql",
+    "Twilio": "AC1a2b3c4d",
+    "Service": "svc-name",
+    "Mailgun": "mg.example.com",
+    "n8n": "workflow"
+  },
+  "Node/Business & Ops": {
+    "Stripe": "acct_1A2b3C4d",
+    "ClickUp": "901400123456"
+  },
+  "Node/AI": {
+    "Claude": "claude -p"
+  },
+  "Node/Language": {
+    "Rust": "1.83",
+    "CSS": "CSS3",
+    "C++": "C++20",
+    "Ruby": "3.3",
+    "Elixir": "1.17",
+    "Go": "1.23",
+    "JavaScript": "ES2024",
+    "HTML": "HTML5",
+    "Objective-C": "2.0",
+    "PHP": "8.3",
+    "Python": "3.12",
+    "Swift": "6.0",
+    "TypeScript": "5.6",
+    "Java": "21 LTS",
+    "Code": "language",
+    ".NET": "8.0 LTS",
+    "C#": "12"
+  },
+  "Node/Framework": {
+    "Vue": "3.5",
+    "Laravel": "11.x",
+    "Django": "5.1",
+    "Flask": "3.0",
+    "Node.js": "22 LTS",
+    "Angular": "18",
+    "Rails": "7.2",
+    "Next.js": "15.1",
+    "Astro": "5.0",
+    "React": "19",
+    "React Native": "0.76",
+    "Spring Boot": "3.4",
+    "NestJS": "10.4",
+    "Framework": "v1.0",
+    "DevExpress": "23.2",
+    "Lumen": "5.2",
+    "Laravel Nova": "3.30",
+    "Xamarin": "5.0"
+  },
+  "Node/DevOps": {
+    "Docker": "myapp:1.2.3",
+    "Kubernetes": "ns/deployment",
+    "Ansible": "site.yml",
+    "Terraform": "1.9",
+    "Helm": "chart-1.0.0",
+    "Jenkins": "pipeline/main",
+    "GitHub": "org/repo",
+    "GitHub Actions": "deploy.yml",
+    "JFrog": "artifactory/repo",
+    "Nx": "20.x",
+    "Azure": "rg-prod",
+    "Playwright": "1.49",
+    "Supervisor": "worker:*"
+  },
+  "Node/Observability": {
+    "Dynatrace": "env-abc12345",
+    "Grafana": "dashboard/uid",
+    "Prometheus": ":9090",
+    "Splunk": "index=main",
+    "Datadog": "env:prod",
+    "Elasticsearch": "logs-*",
+    "Kibana": "space/default",
+    "App Insights": "ai-prod-001",
+    "Sentry": "org/project"
+  },
+  "Node/Messaging": {
+    "Kafka": "topic.events",
+    "RabbitMQ": "queue.default"
+  },
+  "Node/Data Store": {
+    "Redis": ":6379 db0",
+    "Postgres": "appdb:5432",
+    "MySQL": "appdb:3306",
+    "MongoDB": "appdb replica",
+    "DynamoDB": "table-name",
+    "Vitess": "keyspace/shard",
+    "etcd": ":2379",
+    "Amazon S3": "s3://bucket",
+    "Blob Storage": "container/path",
+    "Database": "db_name",
+    "SQL Server": "appdb:1433"
+  },
+  "Node/Server": {
+    "Apache": ":80 / :443",
+    "Nginx": ":443 TLS",
+    "uWSGI": ":8000",
+    "Gunicorn": ":8000 4w",
+    "Server": "host:port"
+  },
+  "Node/Client": {
+    "Laptop": "Chrome 140",
+    "Mobile": "iOS 18 Safari",
+    "Desktop": "macOS 15"
+  },
+  "Node/Adobe Experience Cloud": {
+    "Experience Platform": "prod sandbox",
+    "Experience Manager": "author / publish",
+    "Journey Optimizer": "prod sandbox",
+    "Journey Orchestration": "prod sandbox",
+    "Customer Journey Analytics": "cja-prod-view",
+    "Data Collection": "datastream ID",
+    "Real-Time CDP Collab.": "prod sandbox",
+    "App Builder": "prod workspace",
+    "Admin Console": "org@AdobeOrg",
+    "Permissions": "product profile",
+    "Privacy Service": "GDPR / CCPA",
+    "Software Distribution": "release channel",
+    "System Status": "all systems",
+    "Workfront": "project ID",
+    "Adobe Analytics": "rsid: prodsuite",
+    "Adobe Target": "activity ID",
+    "Audience Manager": "segment ID",
+    "Campaign": "delivery ID",
+    "Marketo Engage": "munchkin ID",
+    "Commerce": "store view",
+    "GenStudio": "workspace"
+  }
+}

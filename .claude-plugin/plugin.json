@@ -48,6 +48,7 @@
     "./skills/productivity/writing-for-agents",
     "./skills/engineering/writing-specs",
     "./skills/engineering/splitting-tickets",
-    "./skills/engineering/recording-designs"
+    "./skills/engineering/recording-designs",
+    "./skills/engineering/figma-arch-diagram"
   ]
 }
