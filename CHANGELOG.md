@@ -1,5 +1,11 @@
 # mattpocock-skills
 
+## 2.1.0
+
+### Minor Changes
+
+- [#10](https://github.com/sammykumar/skills/pull/10) [`64ca2e7`](https://github.com/sammykumar/skills/commit/64ca2e7ef2816537498b162e14bcceba0725fa59) Thanks [@sammykumar](https://github.com/sammykumar)! - New `/update-sk-skills` skill: update the skills on this machine without having to remember how you installed them. It detects the route from the evidence on disk (an `sk-skills@<marketplace>` entry in Claude Code's installed-plugins record, a lockfile entry sourced from `sammykumar/skills` at either scope, or a skill directory symlinked into a dev checkout), reports what it found and the exact commands it proposes, then runs the matching update. It stops rather than acting when the two routes coexist, since a machine carrying both has every skill twice with no way to tell which one is running.
+
 ## 2.0.2
 
 ### Patch Changes
