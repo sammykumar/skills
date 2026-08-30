@@ -74,4 +74,6 @@ The dogfood above drove `openscad-lsp` directly over stdio. It did not exercise 
 
 That the plugin root is the repo root, and that Claude Code discovers `.lsp.json` there and attaches the server, is read from the plugins reference rather than observed. It is also precisely the hop where the install-propagation bugs cited in ADR 0008 live, which is why the config is a real file rather than a manifest field.
 
-Confirm after the next release reaches this machine: open a `.scad` file in the `3d-printing` repo, check the `/plugin` Errors tab reports no missing executable, and check `claude --debug` does not report the server as skipped.
+Half of it is now settled. The installed plugin cache keeps the whole repo tree per version, dotfiles included: `~/.claude/plugins/cache/sammykumar/sk-skills/2.2.0/` holds `.agents`, `.changeset`, `.claude-plugin`, `.github` and `.gitignore`. A root-level `.lsp.json` will therefore arrive at the plugin root on install, which is the specific thing the bugs behind ADR 0008 break for manifest-declared config.
+
+What is left is whether Claude Code reads it there and attaches the server. Confirm after the next release reaches this machine: open a `.scad` file in the `3d-printing` repo, check the `/plugin` Errors tab reports no missing executable, and check `claude --debug` does not report the server as skipped.
