@@ -16,7 +16,7 @@ Which of the three grilling skills you want depends on what is in front of you:
 - **A codebase to align against**: grill-with-docs. The same interview, but stateful: it reads your code and keeps what it learns in `CONTEXT.md` and ADRs.
 - **Too big for one session**: wayfinder. It charts the effort as a map and runs grilling sessions inside it.
 
-Leave plan mode off. Plan mode primes the agent to rush toward producing a plan, which is the opposite of staying in inquiry.
+If your harness has a plan mode (Claude Code does), leave it off. Plan mode primes the agent to rush toward producing a plan, which is the opposite of staying in inquiry.
 
 ## It's a conversation, not an interview
 
@@ -52,7 +52,7 @@ Count rounds, not questions. Forty-six questions across four rounds is an ordina
 Usually the scope was too large. Ask the agent to break the work into smaller pieces first, then grill each one. Very long sessions also drift into the **dumb zone**, where the context window is full enough that the questions get worse.
 
 **Can I go back to one question at a time?**
-Yes. Add this to your global `CLAUDE.md`:
+Yes. Add this to your global agent instructions (`CLAUDE.md` in Claude Code, `AGENTS.md` in Codex):
 
 ```
 When grilling, ask one question at a time.
