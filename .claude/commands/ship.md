@@ -5,8 +5,8 @@ argument-hint: [commit-only | no-ci] (default: branch to PR, merge to main, ff l
 
 Ship the current work. `$ARGUMENTS` picks the path; default is **branch to PR, merge to `main`, fast-forward local `main`, clean up branches**.
 
-- `commit-only` — commit, do not push or open a PR. Stop and report the SHAs.
-- `no-ci` — open the PR and merge without waiting for checks. Only when you asked.
+- `commit-only`: commit, do not push or open a PR. Stop and report the SHAs.
+- `no-ci`: open the PR and merge without waiting for checks. Only when you asked.
 
 ## 1. Gates before committing
 
