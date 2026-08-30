@@ -24,9 +24,9 @@ Three ideas carry the whole skill.
 
 The **design tree** is the model of the subject: decisions with decisions hanging off them. The **frontier** is the set of decisions whose prerequisites are all settled: the only questions that can honestly be asked yet. A **round** is one frontier, asked in full and answered in full.
 
-Inside a round the questions are put to you through the harness's structured user-input tool wherever one exists (Claude Code exposes `AskUserQuestion`; other harnesses expose an equivalent request-for-input), because picking an answer beats quoting a question back. The recommended answer is the first option, tagged `(Recommended)`; the other viable answers fill the remaining options; the tool supplies its own free-form option, so the skill adds none; a question where several answers can co-apply is multi-select; and a frontier wider than the tool's four-questions, four-options-per-call limit is spread over consecutive calls inside the same round. Where the harness has no such tool, the round falls back to prose: each question numbered and titled behind a `❓`, then the body, then the recommended answer alone on a `➡️` line, answerable by number ("1 yes, 2 the second option, 3 no, here's why"). Either rendering has one known rough edge: the recommendation sometimes argues *against* the question as it was worded, so agreeing with the recommendation means answering "no" to the question. When that happens, answer the recommendation and say so.
+Inside a round the questions are put to you through the harness's structured user-input tool wherever one exists (Claude Code exposes `AskUserQuestion`; other harnesses expose an equivalent request-for-input), because picking an answer beats quoting a question back. The recommended answer is the first option, tagged `(Recommended)`; the other viable answers fill the remaining options; the tool supplies its own free-form option, so the skill adds none; a question where several answers can co-apply is multi-select; and a frontier wider than the tool's per-call limit (four questions of four options each in Claude Code; other harnesses cap it elsewhere) is spread over consecutive calls inside the same round rather than truncated to fit one call. Where the harness has no such tool, the round falls back to prose: each question numbered and titled behind a `❓`, then the body, then the recommended answer alone on a `➡️` line, answerable by number ("1 yes, 2 the second option, 3 no, here's why"). Either rendering has one known rough edge: the recommendation sometimes argues *against* the question as it was worded, so agreeing with the recommendation means answering "no" to the question. When that happens, answer the recommendation and say so.
 
-The other half of the design is the split between facts and decisions. Facts are the skill's own job: when a frontier question needs something the environment can settle, it dispatches a sub-agent to go and find out rather than asking you. It does not block on that; only the questions downstream of a running exploration wait. Decisions are yours, and it must wait for them. An agent running `grilling` that answers its own decisions has broken the skill, not interpreted it liberally. The session ends when the frontier is empty, and it will not act on what you agreed until you confirm you have reached a shared understanding.
+The other half of the design is the split between facts and decisions. Facts are the skill's own job: when a frontier question needs something the environment can settle, it goes and finds out rather than asking you, dispatching a sub-agent to do the looking where the harness has them. It does not block on that; only the questions downstream of a running exploration wait. Decisions are yours, and it must wait for them. An agent running `grilling` that answers its own decisions has broken the skill, not interpreted it liberally. The session ends when the frontier is empty, and it will not act on what you agreed until you confirm you have reached a shared understanding.
 
 The honest limit: the frontier is the agent's judgement, not a computed graph. It can put two questions in one round and only afterwards discover that one answer should have changed the other. There is no guard against that beyond telling it, which reopens the affected branch in the next round.
 
@@ -43,7 +43,7 @@ This page covers the mechanism. The things people most often want are documented
 ## Common questions
 
 **Can I go back to one question at a time?**
-Yes, and a large part of the audience does. Add this to your global `CLAUDE.md`:
+Yes, and a large part of the audience does. Add this to your global agent instructions (`CLAUDE.md` in Claude Code, `AGENTS.md` in Codex):
 
 ```
 When grilling, ask one question at a time.
@@ -52,7 +52,7 @@ When grilling, ask one question at a time.
 The round-based default is genuinely contested. Practitioners who read slowly, who work in a second language, or who use the sequential format as focus scaffolding all report the one-at-a-time rhythm is better for them, and the opt-out is supported rather than tolerated.
 
 **Where did `/batch-grill-me` go?**
-Into this skill. Round-based questioning shipped briefly as a separate skill, then moved into `grilling` itself, so everything built on the primitive (`grill-me`, `grill-with-docs`, `triage`, `wayfinder`) got it at once. There is no `batch-grill-me` to install, and no separate sequential skill either; the `CLAUDE.md` line above is the way back to one-at-a-time.
+Into this skill. Round-based questioning shipped briefly as a separate skill, then moved into `grilling` itself, so everything built on the primitive (`grill-me`, `grill-with-docs`, `triage`, `wayfinder`) got it at once. There is no `batch-grill-me` to install, and no separate sequential skill either; the instruction line above is the way back to one-at-a-time.
 
 **Asking a whole round at once must lose the questions my earlier answers would have raised. Doesn't it?**
 This is the most common objection to the round design, and the frontier is the answer to it: a round only ever contains questions that do not depend on each other, so no answer in a round can invalidate another question in that round. Answers still reshape everything downstream: the next round is recomputed, not pre-written. What you lose is smaller than "all questions at once" implies, and larger than nothing: see the frontier's limit above.
@@ -77,7 +77,7 @@ A real and unfixed rough edge, reported across harnesses and models: a skill tha
 - A round arrives as a set of selectable questions (or a numbered prose list where the harness has no such tool), each carrying its recommended answer, and you can answer the whole round in one pass.
 - Nothing in a round needs another question in the same round answered first.
 - Later rounds ask things the first round could not have asked.
-- It goes and looks facts up (reading files, dispatching a sub-agent) rather than asking you something it could have found out.
+- It goes and looks facts up (reading files, or dispatching a sub-agent where the harness has them) rather than asking you something it could have found out.
 - Research running in the background does not stall the round; only the questions that depend on it wait.
 - It stops at the end and asks you to confirm the understanding is shared, instead of starting work.
 - Question count stays high while round count stays low.
