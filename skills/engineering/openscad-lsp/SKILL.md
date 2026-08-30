@@ -26,7 +26,7 @@ The server is deliberately narrow. Assume nothing beyond the table below.
 
 **Rename is single file.** It rewrites the current file only, scope-aware within it, and hard-errors with "renaming symbols defined in another file is not yet supported" when the definition lives elsewhere. Even when it succeeds it has not touched consumers in other files. Treat it as a scoped rewrite, then find and update the call sites yourself.
 
-**Diagnostics are syntax, not semantics.** They come from the tree-sitter parse: `syntax error`, `missing <node>`, and an unresolvable `include` path. An undefined variable, a module called with the wrong arguments, or geometry that fails to render will all pass silently. Only the `openscad` binary catches those, and nothing here runs it.
+**Diagnostics are syntax, not semantics.** They come from the tree-sitter parse: `syntax error` and `missing <node>`. There is also a `file not found!` diagnostic for an unresolvable `include`, but it only fires on a single-range edit landing on the include statement itself, so do not rely on a broken include announcing itself. An undefined variable, a module called with the wrong arguments, or geometry that fails to render all pass silently. Only the `openscad` binary catches those, and nothing here runs it.
 
 ## When a symbol will not resolve
 
@@ -34,7 +34,7 @@ Work down this list before concluding the code is wrong.
 
 1. **The server is not installed.** It is a separate binary that the plugin configures but does not ship. Fix: `cargo install openscad-lsp`.
 2. **The file is outside a library path.** The server resolves `include` and `use` relative to the including file, then against `OPENSCADPATH`, then the per-user OpenSCAD libraries directory, then the OpenSCAD installation's own libraries. A dependency outside all of those is invisible to it.
-3. **The definition is a builtin.** Builtins resolve for hover and definition but cannot be renamed.
+3. **The symbol is a builtin.** Builtins are the one case where hover works and definition does not: `cube`, `sin` and friends return their signature and documentation on hover, an empty result for go-to-definition, and "Cannot rename builtin" for rename. An empty definition result on a name you recognise as builtin is expected, not a failure to investigate.
 
 Say plainly which of these applies. A confident answer from a symbol the server never resolved is worse than reporting that it could not be found.
 

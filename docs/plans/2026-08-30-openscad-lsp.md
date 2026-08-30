@@ -12,7 +12,7 @@ The complete handled request set is hover, completion, definition, documentSymbo
 | --- | --- |
 | `references` | **Absent.** No `referencesProvider`, and the request gets no response at all: the server logs `unknown request` and never replies, so a waiting client hangs rather than erroring. |
 | Safe cross-file `rename` | **Single file only.** It errors with "renaming symbols defined in another file is not yet supported", and the `WorkspaceEdit` it returns always carries exactly one URI. Scope-aware within the file, which still beats `sed`. |
-| `diagnostics` | Present, but pushed **only on `didChange`**, never on `didOpen`, and they are tree-sitter parse errors, not OpenSCAD semantic errors. A client that opens a file and waits for diagnostics waits forever. |
+| `diagnostics` | Present, but pushed **only on `didChange`**, never on `didOpen`, and they are tree-sitter parse errors, not OpenSCAD semantic errors, and the one include-resolution diagnostic among them only fires on a single-range edit landing on the include statement. A client that opens a file and waits for diagnostics waits forever. |
 
 Two findings in the other direction. The server reads `include` and `use` targets **from disk itself**, so cross-file go-to-definition works with only the entry file opened. And all its logging goes through `eprintln!` to stderr, leaving stdout protocol-only, which is Claude Code's hard requirement for a hosted language server.
 
@@ -38,7 +38,7 @@ Library paths are left to the server. It already reads `OPENSCADPATH` at startup
 
 `skills/engineering/openscad-lsp/`, model-invoked, triggering on OpenSCAD source rather than on failure symptoms. By the time navigation visibly fails, the model has already trusted a capability that is not there.
 
-Its content is the three absences above, plus the resolution ladder for a symbol that will not resolve: server not installed (`cargo install openscad-lsp`), dependency outside every library path, or a builtin.
+Its content is the three absences above, plus the resolution ladder for a symbol that will not resolve: server not installed (`cargo install openscad-lsp`), dependency outside every library path, or a builtin. Builtins are worth their own rung, because they are the one case where hover works and go-to-definition returns empty: verified by probe, `cube` and `sin` both hover with full documentation and return `[]` for definition.
 
 _Why a skill at all,_ when this is plugin config: without it nothing tells the model in-context where the intelligence stops, and the failure mode is a confident wrong answer about a symbol the server never resolved.
 

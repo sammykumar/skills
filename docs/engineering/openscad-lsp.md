@@ -11,36 +11,21 @@ It is not a driver. Nothing in it invokes the server; Claude Code does that. The
 
 ## Prerequisites
 
-The language server is a separate binary. Plugins configure a language server, they do not bundle one.
-
-```bash
-cargo install openscad-lsp
-```
-
-Without it, `.scad` files get no intelligence at all, and the `/plugin` Errors tab reports that the executable was not found in `$PATH`.
+The `openscad-lsp` binary, installed separately through cargo. Plugins configure a language server, they do not bundle one, so without it `.scad` files get no intelligence at all and Claude Code reports a missing executable rather than starting anything. The skill itself carries the command.
 
 ## The boundary
 
-The three absences are the whole point of the page.
-
-| Assumption | Reality |
-| --- | --- |
-| Find references works | It does not exist. The server never replies to the request, so a client that asks hangs rather than erroring. Grep the `include` and `use` graph instead. |
-| Rename is safe across files | It rewrites the current file only, and refuses outright when the definition lives elsewhere. Consumers in other files are untouched. |
-| Diagnostics catch mistakes | They are tree-sitter parse errors. An undefined variable, a module called with wrong arguments, or geometry that fails to render all pass silently. |
+The three absences: **find references**, which is unimplemented and never even replies; **cross-file rename**, which is refused outright; and **semantic diagnostics**, which never arrive, because what does arrive is tree-sitter parse errors. The skill spells out what each one does instead, and what to do about it.
 
 What genuinely works, and is the reason to have it at all, is **cross-file go-to-definition**. The server reads `include` and `use` targets from disk itself, so a definition resolves into a file nobody opened. That is the query grep cannot cheaply give you.
 
 ## Common questions
 
 **Why do no diagnostics appear when I just open a `.scad` file?**
-The server only publishes diagnostics after an edit, never on open. Nothing is wrong; there is simply no analysis until the document changes. In practice this is invisible, because Claude Code edits files, and an edit is exactly what triggers them.
+The server only publishes diagnostics after an edit, never on open. Nothing is wrong; there is simply no analysis until the document changes, and an edit is what triggers them.
 
 **Why does find references hang rather than return nothing?**
 The server does not implement the request and never sends a reply, so anything waiting on one waits forever. That is why the skill tells you to grep the `include` and `use` graph instead of asking.
-
-**Nothing resolves at all. What is wrong?**
-Almost always the binary is missing, because the plugin configures a language server but does not ship one. Check the `/plugin` Errors tab for a missing executable, and install it with `cargo install openscad-lsp`.
 
 ## It's working if
 
