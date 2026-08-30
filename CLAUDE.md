@@ -13,6 +13,7 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 - `claude plugin validate . --strict`: run after editing `.claude-plugin/plugin.json`, `marketplace.json`, or `.lsp.json`.
 - `npm run check-plugin-version`: asserts `plugin.json` version matches `package.json`; run after either changes.
 - `npm test`: runs Node's built-in test runner over `skills/**/*.test.mjs`; run after editing any skill's `.mjs` glue.
+- `npm run check-em-dashes`: fails if an em-dash reaches the repo's prose. Code is exempt, so a name quoted from another system stays verbatim inside a fence or a code span. Chained onto `npm run version`, because regenerating `CHANGELOG.md` from the changesets is how these get in.
 - `scripts/list-skills.sh`: list every `SKILL.md` path in the repo.
 - `scripts/link-skills.sh`: symlink the repo's skills into the local harness directories for dogfooding; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
 - `scripts/scaffold-ship.sh /path/to/repo [branch]`: cut a repo's `/ship` command from the canonical template into its `.claude/commands/ship.md`. See below.

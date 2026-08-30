@@ -11,8 +11,9 @@
   "scripts": {
     "changeset": "changeset",
     "test": "node --test \"skills/**/*.test.mjs\"",
-    "version": "changeset version && node scripts/sync-plugin-version.mjs",
-    "check-plugin-version": "node scripts/sync-plugin-version.mjs --check"
+    "version": "changeset version && node scripts/sync-plugin-version.mjs && node scripts/check-em-dashes.mjs",
+    "check-plugin-version": "node scripts/sync-plugin-version.mjs --check",
+    "check-em-dashes": "node scripts/check-em-dashes.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",
