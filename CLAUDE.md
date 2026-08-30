@@ -10,7 +10,7 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 
 ## Commands
 
-- `claude plugin validate . --strict`: run after editing `.claude-plugin/plugin.json` or `marketplace.json`.
+- `claude plugin validate . --strict`: run after editing `.claude-plugin/plugin.json`, `marketplace.json`, or `.lsp.json`.
 - `npm run check-plugin-version`: asserts `plugin.json` version matches `package.json`; run after either changes.
 - `npm test`: runs Node's built-in test runner over `skills/**/*.test.mjs`; run after editing any skill's `.mjs` glue.
 - `scripts/list-skills.sh`: list every `SKILL.md` path in the repo.
@@ -39,6 +39,12 @@ Skills are organized into bucket folders under `skills/`:
 Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in either.
 
 Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace (a fallback the install block explains, not the documented route). Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+
+### Language servers
+
+The plugin ships one thing that is not a skill: `.lsp.json` at the repo root, which declares the language servers Claude Code should launch. It is plugin configuration, not a stray file, and it is deliberately a separate file rather than an inline `lspServers` block in `plugin.json`, because LSP config declared in a manifest has a history of not surviving plugin installation. Language servers are Claude Code only, with no Codex equivalent, so a skill that documents one says so in its own body rather than promising navigation Codex cannot perform. The reasoning is in [.agents/adr/0008-ship-language-servers-not-a-bundled-lsp-client.md](./.agents/adr/0008-ship-language-servers-not-a-bundled-lsp-client.md).
+
+A plugin configures a language server, it never bundles one, so every entry has a binary the user installs themselves. Leave the optional fields unset unless there is a reason not to: before Claude Code v2.1.205, setting `restartOnCrash` or `shutdownTimeout` caused the server to be skipped entirely, with the reason visible only under `claude --debug`.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 

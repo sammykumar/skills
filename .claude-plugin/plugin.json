@@ -49,6 +49,7 @@
     "./skills/engineering/writing-specs",
     "./skills/engineering/splitting-tickets",
     "./skills/engineering/recording-designs",
-    "./skills/engineering/figma-arch-diagram"
+    "./skills/engineering/figma-arch-diagram",
+    "./skills/engineering/openscad-lsp"
   ]
 }

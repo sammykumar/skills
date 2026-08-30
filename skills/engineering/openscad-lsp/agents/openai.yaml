@@ -1,0 +1,3 @@
+interface:
+  display_name: "OpenSCAD LSP"
+  short_description: "What the OpenSCAD language server can and cannot answer"

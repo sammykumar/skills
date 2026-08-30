@@ -1,0 +1,9 @@
+{
+  "openscad": {
+    "command": "openscad-lsp",
+    "args": ["--stdio"],
+    "extensionToLanguage": {
+      ".scad": "openscad"
+    }
+  }
+}
