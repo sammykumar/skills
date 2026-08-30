@@ -60,9 +60,18 @@ The `.mjs` LSP client, its hand-rolled `Content-Length` framing, its `.scad` fix
 - [x] `plugin.json` skills array, top-level `README.md`, `skills/engineering/README.md`, `ask-sk`
 - [x] Changeset
 - [x] Dogfood against the `3d-printing` repo's cross-file `include` chain
+- [ ] After release, confirm Claude Code actually discovers `.lsp.json` and attaches the server (see below)
 
 ## Dogfood
 
 Run against `3d-models/igla-fob-housing-replacement/tools-review/gates.scad` in the `3d-printing` repo, which reaches its dependencies through `include <../igla-fob-housing.scad>`, a parent-directory hop.
 
 With only `gates.scad` opened, definition resolved `pcb2d` and `back_half` into `igla-fob-housing.scad`, and resolved the top-level variable `seat_z` there as well, so variables cross files the same way modules do. Hover returned each one's signature along with the doc comment written above it in the other file.
+
+### Still unverified: the hosting hop
+
+The dogfood above drove `openscad-lsp` directly over stdio. It did not exercise Claude Code's hosting of it, because `.lsp.json` only takes effect through an installed plugin, and the installed `sk-skills` is still 2.2.0.
+
+That the plugin root is the repo root, and that Claude Code discovers `.lsp.json` there and attaches the server, is read from the plugins reference rather than observed. It is also precisely the hop where the install-propagation bugs cited in ADR 0008 live, which is why the config is a real file rather than a manifest field.
+
+Confirm after the next release reaches this machine: open a `.scad` file in the `3d-printing` repo, check the `/plugin` Errors tab reports no missing executable, and check `claude --debug` does not report the server as skipped.

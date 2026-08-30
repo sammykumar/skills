@@ -31,6 +31,17 @@ The three absences are the whole point of the page.
 
 What genuinely works, and is the reason to have it at all, is **cross-file go-to-definition**. The server reads `include` and `use` targets from disk itself, so a definition resolves into a file nobody opened. That is the query grep cannot cheaply give you.
 
+## Common questions
+
+**Why do no diagnostics appear when I just open a `.scad` file?**
+The server only publishes diagnostics after an edit, never on open. Nothing is wrong; there is simply no analysis until the document changes. In practice this is invisible, because Claude Code edits files, and an edit is exactly what triggers them.
+
+**Why does find references hang rather than return nothing?**
+The server does not implement the request and never sends a reply, so anything waiting on one waits forever. That is why the skill tells you to grep the `include` and `use` graph instead of asking.
+
+**Nothing resolves at all. What is wrong?**
+Almost always the binary is missing, because the plugin configures a language server but does not ship one. Check the `/plugin` Errors tab for a missing executable, and install it with `cargo install openscad-lsp`.
+
 ## It's working if
 
 - Go-to-definition on a module called in one file lands in the file that `include`s or `use`s it, without that file being open.
