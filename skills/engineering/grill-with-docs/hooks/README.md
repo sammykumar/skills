@@ -4,11 +4,11 @@ A `UserPromptSubmit` hook that notices when a prompt is a clear new-feature or d
 
 ## Files
 
-- `detect-new-feature.sh` — Claude Code hook script. Keyword gate, then a `claude -p --model haiku` confirm.
-- `detect-new-feature-codex.sh` — Codex mirror. Same logic; confirm via `codex exec`.
-- `injected-context.md` — the exact instructions both scripts inject on a confirmed hit. Single source of truth. It never names the user-invoked wrapper skill (naming it would make the model try to invoke a `disable-model-invocation` skill, which the harness blocks).
-- `hooks.json` — Claude plugin hook wiring (`${CLAUDE_PLUGIN_ROOT}`-relative).
-- `codex-hooks.json` — Codex hook wiring (absolute path; adjust if your checkout moves).
+- `detect-new-feature.sh`: Claude Code hook script. Keyword gate, then a `claude -p --model haiku` confirm.
+- `detect-new-feature-codex.sh`: Codex mirror. Same logic; confirm via `codex exec`.
+- `injected-context.md`: the exact instructions both scripts inject on a confirmed hit. Single source of truth. It never names the user-invoked wrapper skill (naming it would make the model try to invoke a `disable-model-invocation` skill, which the harness blocks).
+- `hooks.json`: Claude plugin hook wiring (`${CLAUDE_PLUGIN_ROOT}`-relative).
+- `codex-hooks.json`: Codex hook wiring (absolute path; adjust if your checkout moves).
 
 ## How it behaves
 

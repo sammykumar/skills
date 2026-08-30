@@ -5,8 +5,8 @@ argument-hint: [commit-only | no-ci] (default: branch to PR, merge to main, ff l
 
 Ship the current work. `$ARGUMENTS` picks the path; default is **branch to PR, merge to `main`, fast-forward local `main`, clean up branches**.
 
-- `commit-only` — commit, do not push or open a PR. Stop and report the SHAs.
-- `no-ci` — open the PR and merge without waiting for checks. Only when you asked.
+- `commit-only`: commit, do not push or open a PR. Stop and report the SHAs.
+- `no-ci`: open the PR and merge without waiting for checks. Only when you asked.
 
 ## 1. Gates before committing
 
@@ -15,7 +15,7 @@ This repo has no build or test step; the gates are about the manifests and the p
 - If you edited `.claude-plugin/plugin.json` or `.claude-plugin/marketplace.json`: `claude plugin validate . --strict`.
 - If either manifest version or `package.json` version changed: `npm run check-plugin-version`.
 - If this is a user-facing skill change: add a changeset with `npm run changeset` (do not hand-edit versions).
-- No em-dashes anywhere in the repo's prose. If a promoted skill (`engineering/` or `productivity/`) was added, renamed, or changed, confirm its `README.md` entry, `plugin.json` skills array, `docs/<bucket>/<skill>.md` page, and `ask-sk` routing are all in sync before shipping a lie.
+- No em-dashes anywhere in the repo's prose: `npm run check-em-dashes`. If a promoted skill (`engineering/` or `productivity/`) was added, renamed, or changed, confirm its `README.md` entry, `plugin.json` skills array, `docs/<bucket>/<skill>.md` page, and `ask-sk` routing are all in sync before shipping a lie.
 
 Report actual results. If a gate fails, fix it or stop and say so; do not ship past it silently.
 
