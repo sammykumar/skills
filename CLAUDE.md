@@ -59,9 +59,9 @@ Where each skill lands depends on whether the `sk-skills` plugin already ships i
 | --- | --- | --- |
 | `<repo>/.claude/skills` | promoted (`engineering/`, `productivity/`) | this repo only, where dogfooding happens |
 | `~/.claude/skills` | non-promoted (`misc/`, `in-progress/`) | Claude Code, everywhere |
-| `~/.agents/skills` | every skill | Codex, everywhere, since no Codex plugin exists |
+| `~/.agents/skills` | every skill | Codex, everywhere, only when the Codex SK Skills plugin is disabled |
 
-The script prunes the repo-local directory on every run, so a renamed or demoted skill does not linger as a stale symlink. Everywhere else, the promoted skills come from the plugin, which this repo disables in `.claude/settings.json` so the working-tree copies win here and only here.
+The script prunes the repo-local directory on every run, so a renamed or demoted skill does not linger as a stale symlink. When the Codex SK Skills plugin is enabled, it also removes this repo's global Codex links so each skill has one registration path. Everywhere else, the promoted skills come from the plugin, which this repo disables in `.claude/settings.json` so the working-tree copies win here and only here.
 
 No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 

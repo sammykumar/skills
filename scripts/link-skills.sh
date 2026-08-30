@@ -17,7 +17,7 @@ set -euo pipefail
 #
 #   - <repo>/.claude/skills: promoted skills, Claude Code, this repo only
 #   - ~/.claude/skills:      non-promoted skills, Claude Code, everywhere
-#   - ~/.agents/skills:      every skill, Codex, everywhere (no Codex plugin exists)
+#   - ~/.agents/skills:      every skill, Codex, everywhere when Codex has no SK Skills plugin
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 
@@ -26,6 +26,17 @@ is_promoted() {
     "$REPO"/skills/engineering/* | "$REPO"/skills/productivity/*) return 0 ;;
     *) return 1 ;;
   esac
+}
+
+codex_sk_skills_plugin_enabled() {
+  local config="$HOME/.codex/config.toml"
+  [ -f "$config" ] || return 1
+  awk '
+    /^\[plugins\."sk-skills@sammykumar"\]$/ { in_plugin = 1; next }
+    in_plugin && /^enabled[[:space:]]*=[[:space:]]*true[[:space:]]*$/ { enabled = 1; exit }
+    in_plugin && /^\[/ { exit }
+    END { exit(enabled ? 0 : 1) }
+  ' "$config"
 }
 
 # Collect the repo's skills once, link into every destination.
@@ -37,13 +48,17 @@ while IFS= read -r -d '' skill_md; do
   srcs+=("$src")
 done < <(find "$REPO/skills" -name SKILL.md -not -path '*/node_modules/*' -not -path '*/deprecated/*' -print0)
 
-# Each destination takes one of three slices: promoted, non-promoted, or all.
+# Each destination takes one of four slices: promoted, non-promoted, all, or
+# skipped when Codex already receives these skills from its plugin.
 for DEST in "$REPO/.claude/skills" "$HOME/.claude/skills" "$HOME/.agents/skills"; do
   case "$DEST" in
     "$REPO"/*) want="promoted" ;;
     "$HOME/.claude/skills") want="other" ;;
     *) want="all" ;;
   esac
+  if [ "$DEST" = "$HOME/.agents/skills" ] && codex_sk_skills_plugin_enabled; then
+    want="skip"
+  fi
 
   # If $DEST is a symlink that resolves into this repo, we'd end up writing the
   # per-skill symlinks back into the repo's own skills/ tree. Detect and bail
@@ -61,6 +76,19 @@ for DEST in "$REPO/.claude/skills" "$HOME/.claude/skills" "$HOME/.agents/skills"
   fi
 
   mkdir -p "$DEST"
+
+  if [ "$want" = "skip" ]; then
+    for target in "$DEST"/*; do
+      [ -L "$target" ] || continue
+      case "$(readlink "$target")" in
+        "$REPO"/*)
+          rm "$target"
+          echo "unlinked $(basename "$target") (now served by the Codex SK Skills plugin)"
+          ;;
+      esac
+    done
+    continue
+  fi
 
   # The repo-local directory should hold the promoted set and nothing else, so
   # prune our own symlinks that have gone stale: a skill that was renamed, one
