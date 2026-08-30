@@ -12,7 +12,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
-const EM_DASH = "—";
+const EM_DASH = String.fromCharCode(0x2014); // built from the code point so this file is not its own hit
 
 const tracked = execFileSync("git", ["ls-files", "-z", "*.md", "*.mjs", "*.sh"], {
   cwd: repo,
