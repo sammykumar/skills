@@ -1,5 +1,17 @@
 # sk-skills
 
+## 2.3.1
+
+### Patch Changes
+
+- [#20](https://github.com/sammykumar/skills/pull/20) [`0c484e7`](https://github.com/sammykumar/skills/commit/0c484e712f85b6060b85aef9930dc703dabf4afa) Thanks [@sammykumar](https://github.com/sammykumar)! - grilling: state the structured-user-input cap in harness-neutral terms. The rule previously read "a call caps at four questions, four options each", which are Claude Code's `AskUserQuestion` numbers; on a harness whose tool takes fewer (Codex takes three) that reads as the size of a round, so the frontier gets silently truncated to one call. It now says every such tool caps a call, names four-by-four as Claude Code's specific case, and repeats that the cap bounds the call and never the round: keep calling until the whole frontier is covered, then wait.
+
+  Same pass over the fact-finding rule: "dispatch a sub-agent to find it" was a capability assumption stated with no fallback, so a harness without sub-agents got an instruction it cannot follow. It now reads as go and find the fact yourself, dispatching a sub-agent where the harness has them, with the non-blocking behaviour unchanged.
+
+- [#21](https://github.com/sammykumar/skills/pull/21) [`5de05db`](https://github.com/sammykumar/skills/commit/5de05db263d0595fcd2953b60a0091829f71ebf0) Thanks [@sammykumar](https://github.com/sammykumar)! - Add `/setup-statusline`, which installs the custom terminal status line across Claude Code, GitHub Copilot CLI, and Codex.
+
+  Claude Code and Copilot CLI both spawn a command and hand it a JSON session payload on stdin, so both run the same vendored renderer; Copilot reaches it through an adapter that reshapes the payload. Codex accepts only a fixed enum of built-in items for `tui.status_line` and has no hook for command output, so it gets the closest built-in approximation instead, and the skill says so rather than implying parity.
+
 ## 2.3.0
 
 ### Minor Changes
