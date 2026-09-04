@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup Statusline"
+  short_description: "Install the custom status line across Claude Code, Copilot, and Codex"
+policy:
+  allow_implicit_invocation: false

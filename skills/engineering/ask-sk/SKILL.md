@@ -97,4 +97,6 @@ Off the main flow entirely.
 
 **`/setup-sk-skills`**: run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume, and to seed `CONTEXT.md` from the vocabulary in your past sessions in that repo. Custom issue trackers also work.
 
+**`/setup-statusline`**: run once per machine, not per repo, to install the custom terminal status line across your coding agents. Claude Code and GitHub Copilot CLI get the real renderer; Codex gets the closest approximation its built-in items allow, because it cannot run a command for its status line.
+
 **`/update-sk-skills`**: run when you want the skills themselves brought up to date. It works out how they reached this machine (the Claude Code plugin, skills.sh, or a symlinked dev checkout), reports what it found, and runs the matching update, so you never have to remember which route you took.

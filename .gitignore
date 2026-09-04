@@ -2,3 +2,5 @@ node_modules
 .claude/*
 !.claude/commands/
 !.claude/settings.json
+__pycache__/
+*.pyc
