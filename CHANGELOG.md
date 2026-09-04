@@ -1,5 +1,11 @@
 # sk-skills
 
+## 2.3.2
+
+### Patch Changes
+
+- [#22](https://github.com/sammykumar/skills/pull/22) [`303cfcc`](https://github.com/sammykumar/skills/commit/303cfcceb1a1ca3926237ce74d409aca4e2eed78) Thanks [@sammykumar](https://github.com/sammykumar)! - Make `npm run version` survive a real release. The em-dash check now skips tracked files that no longer exist on disk, so it stops crashing with ENOENT on the changesets `changeset version` has just consumed, and a new `scripts/changeset-version.mjs` borrows a `GITHUB_TOKEN` from `gh auth token` when the variable is unset.
+
 ## 2.3.1
 
 ### Patch Changes
