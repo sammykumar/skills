@@ -10,8 +10,8 @@
   "license": "MIT",
   "scripts": {
     "changeset": "changeset",
-    "test": "node --test \"skills/**/*.test.mjs\"",
-    "version": "changeset version && node scripts/sync-plugin-version.mjs && node scripts/check-em-dashes.mjs",
+    "test": "node --test \"skills/**/*.test.mjs\" \"scripts/**/*.test.mjs\"",
+    "version": "node scripts/changeset-version.mjs && node scripts/sync-plugin-version.mjs && node scripts/check-em-dashes.mjs",
     "check-plugin-version": "node scripts/sync-plugin-version.mjs --check",
     "check-em-dashes": "node scripts/check-em-dashes.mjs"
   },
