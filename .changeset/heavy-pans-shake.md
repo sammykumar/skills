@@ -1,5 +1,5 @@
 ---
-"sk-skills": minor
+"sk-skills": patch
 ---
 
 Add `/setup-statusline`, which installs the custom terminal status line across Claude Code, GitHub Copilot CLI, and Codex.
