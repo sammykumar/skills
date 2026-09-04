@@ -1,0 +1,37 @@
+{
+  "cwd": "/Users/samkumar/Development/SK-Productions-LLC/skills",
+  "session_id": "20e45d57-15c5-42c1-a795-a255b4cb3fc7",
+  "session_name": null,
+  "transcript_path": "/tmp/session-state/20e45d57-15c5-42c1-a795-a255b4cb3fc7",
+  "model": { "id": "gpt-5.6-sol", "display_name": "gpt-5.6-sol · medium" },
+  "workspace": { "current_dir": "/Users/samkumar/Development/SK-Productions-LLC/skills" },
+  "username": null,
+  "remote": { "connected": false },
+  "version": "1.0.82",
+  "cost": {
+    "total_api_duration_ms": 4200,
+    "total_lines_added": 12,
+    "total_lines_removed": 3,
+    "total_duration_ms": 935,
+    "total_premium_requests": 0
+  },
+  "context_window": {
+    "total_input_tokens": 31500,
+    "total_output_tokens": 17,
+    "total_cache_read_tokens": 18000,
+    "total_cache_write_tokens": 13500,
+    "total_reasoning_tokens": 0,
+    "total_tokens": 31517,
+    "context_window_size": 400000,
+    "used_percentage": 8,
+    "remaining_percentage": 92,
+    "remaining_tokens": 368483,
+    "last_call_input_tokens": 31500,
+    "last_call_output_tokens": 17,
+    "current_context_tokens": 31517,
+    "displayed_context_limit": 400000,
+    "current_context_used_percentage": 7.88
+  },
+  "ai_used": { "total_nano_aiu": 0, "formatted": "3.76" },
+  "allow_all_enabled": false
+}
