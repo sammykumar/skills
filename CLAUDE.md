@@ -12,7 +12,7 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 
 - `claude plugin validate . --strict`: run after editing `.claude-plugin/plugin.json`, `marketplace.json`, or `.lsp.json`.
 - `npm run check-plugin-version`: asserts `plugin.json` version matches `package.json`; run after either changes.
-- `npm test`: runs Node's built-in test runner over `skills/**/*.test.mjs`; run after editing any skill's `.mjs` glue.
+- `npm test`: runs Node's built-in test runner over `skills/**/*.test.mjs` and `scripts/**/*.test.mjs`; run after editing any skill's `.mjs` glue or a repo script that has a test suite.
 - `npm run check-em-dashes`: fails if an em-dash reaches the repo's prose. Code is exempt, so a name quoted from another system stays verbatim inside a fence or a code span. Chained onto `npm run version`, because regenerating `CHANGELOG.md` from the changesets is how these get in.
 - `scripts/list-skills.sh`: list every `SKILL.md` path in the repo.
 - `scripts/link-skills.sh`: symlink the repo's skills into the local harness directories for dogfooding; re-run after adding, removing, or renaming a skill. Dev-only, not an installer.
@@ -26,6 +26,8 @@ This is a fork of https://github.com/mattpocock/skills, kept for local customiza
 
 - `npm run changeset`: add a changeset describing any user-facing skill change.
 - `npm run version`: applies changesets and runs `sync-plugin-version.mjs` to copy `package.json`'s version into `plugin.json`. Do not hand-edit either version.
+- Push before you version. The changelog generator looks up the commit that added each changeset, so `changeset version` fails with `Cannot read properties of null (reading 'author')` when those commits exist only locally. Get them onto GitHub first.
+- The changelog generator resolves PR and author links through the GitHub API, so `changeset version` needs a `GITHUB_TOKEN`. `scripts/changeset-version.mjs` wraps it and borrows the token from `gh auth token` when the variable is unset, so an authenticated `gh` CLI is enough. Set `GITHUB_TOKEN` yourself only where `gh` is not signed in, such as CI. Never commit a token.
 
 ## Skill authoring conventions
 

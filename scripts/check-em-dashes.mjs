@@ -7,7 +7,7 @@
 // in Markdown, fenced blocks and inline code spans are stripped before checking.
 
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,8 +35,15 @@ const proseOnly = (text) => {
 };
 
 const hits = [];
+let checked = 0;
 for (const file of tracked) {
-  const text = readFileSync(join(repo, file), "utf8");
+  const path = join(repo, file);
+  // `git ls-files` lists the index, so a file deleted but not yet staged is still
+  // tracked. `changeset version` consumes the changesets that way, and reading one
+  // back would crash the check with ENOENT.
+  if (!existsSync(path)) continue;
+  checked += 1;
+  const text = readFileSync(path, "utf8");
   const lines = file.endsWith(".md") ? proseOnly(text) : text.split("\n");
   lines.forEach((line, i) => {
     if (line.includes(EM_DASH)) hits.push(`${file}:${i + 1}`);
@@ -44,7 +51,7 @@ for (const file of tracked) {
 }
 
 if (hits.length === 0) {
-  console.log(`no em-dashes in prose (${tracked.length} files checked)`);
+  console.log(`no em-dashes in prose (${checked} files checked)`);
   process.exit(0);
 }
 
